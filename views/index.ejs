@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>test page</title>
+</head>
+<body>
+	<h3>dummy</h3>
+	<ul>
+		<% for(let item of items) {%>
+		<li>
+		<% console.log(item.i_name); %>
+		<%= item.i_name %>
+		<%= item.i_store_name %>
+		<%= item.i_now_price %>
+		</li>
+		<% } %>
+	</ul>
+</body>
+</html>

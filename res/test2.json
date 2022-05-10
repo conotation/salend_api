@@ -1,0 +1,8 @@
+{
+	"stores": [
+		{"s_id": 123, "s_name": "myunmok GS 24", "s_location": "myunmok 3 dong yogi", "s_time": "00:00-24:00", "s_image": "https://salend.tk/res/s1.jpg"},
+		{"s_id": 124, "s_name": "myunmok GS 13", "s_location": "myunmok 2 dong yogi", "s_time": "00:00-24:00", "s_image": "https://salend.tk/res/s2.jpg"},
+		{"s_id": 125, "s_name": "myunmok GS 05", "s_location": "myunmok 4 dong yogi", "s_time": "00:00-24:00", "s_image": "https://salend.tk/res/s3.jpg"},
+		{"s_id": 126, "s_name": "myunmok GS 01", "s_location": "myunmok 1 dong yogi", "s_time": "00:00-24:00", "s_image": "https://salend.tk/res/s4.jpg"}
+	]
+}
