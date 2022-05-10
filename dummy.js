@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const Item = require('./models/item')
 
-mongoose.connect('mongodb://localhost:27017/item', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/items', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("OPEN!!")
     })
