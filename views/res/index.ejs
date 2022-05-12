@@ -1,13 +1,20 @@
-{
-	"near_by": [
-		{"i_id": 1234567, "i_name": "snoopy", "i_store_name": "Myunmok GS23", "i_image": "https://api.salend.tk/res/A1.jpg", "i_price": 1500, "i_now_price": 1200},
-		{"i_id": 1234568, "i_name": "windowXp", "i_store_name": "Microsoft", "i_image": "https://api.salend.tk/res/A2.jpg", "i_price": 13000, "i_now_price": 10000},
-		{"i_id": 1234569, "i_name": "mollu", "i_store_name": "MolluStore", "i_image": "https://api.salend.tk/res/A3.jpg", "i_price": 24000, "i_now_price": 22220}
-	],
-	"end_time": [
-		{"i_id": 15, "i_name": "item1", "i_store_name": "Myunmok GS24", "i_image": "https://api.salend.tk/res/B1.jpg", "i_price": 66666, "i_now_price": 60000},
-		{"i_id": 16, "i_name": "item2", "i_store_name": "Myunmok GS25", "i_image": "https://api.salend.tk/res/B2.jpg", "i_price": 77777, "i_now_price": 70000},
-		{"i_id": 17, "i_name": "item3", "i_store_name": "Myunmok GS26", "i_image": "https://api.salend.tk/res/B3.jpg", "i_price": 88888, "i_now_price": 80000},
-		{"i_id": 18, "i_name": "item4", "i_store_name": "Myunmok GS27", "i_image": "https://api.salend.tk/res/B4.jpg", "i_price": 99999, "i_now_price": 90000}
-	]
-}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>test page</title>
+</head>
+<body>
+	<h3>dummy</h3>
+	<ul>
+		<% for(let item of items) {%>
+		<li>
+		<% console.log(item.i_name); %>
+		<%= item.i_name %>
+		<%= item.i_store_name %>
+		<%= item.i_now_price %>
+		</li>
+		<% } %>
+	</ul>
+</body>
+</html>
