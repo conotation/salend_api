@@ -23,9 +23,11 @@ app.use(express.static(`${__dirname}/src/public`));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+const route = require('./src/index.js');
 
+app.use("/", route)
 
-module.exports = app
+module.exports = app;
 
 
 // // -------------- USE --------------
