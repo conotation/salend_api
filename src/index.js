@@ -5,7 +5,7 @@ const path = require('path')
 
 const router = express.Router()
 
-const root = require("./api/index");
+const root = require("./api/root");
 const User = require("./api/user");
 const Item = require("./api/item");
 const Store = require("./api/store");
