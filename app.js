@@ -8,6 +8,25 @@ const mongoose = require('mongoose');
 
 const fileupload = require('express-fileupload')
 
+// DB Connect 
+mongoose.connect('mongodb://localhost:27017/salend_test', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => {
+        console.log("OPEN!!")
+    })
+    .catch(err => {
+        console.log("ERROR!!")
+    })
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, "connection error: "));
+db.once("open", () => {
+    console.log("Database Connected");
+});
+
+
 const reqPre = (req, res, next) => {
     console.log(Date.now());
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -21,10 +40,9 @@ app.set("views", "src/views");
 app.set("view engine", "pug");
 app.use(express.static(`${__dirname}/src/public`));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const route = require('./src/index.js');
-
 app.use("/", route)
 
 module.exports = app;
@@ -36,14 +54,7 @@ module.exports = app;
 // }));
 
 
-// // DB Connect 
-// mongoose.connect('mongodb://localhost:27017/items', {useNewUrlParser: true, useUnifiedTopology: true})
-//     .then(() => {
-//         console.log("OPEN!!")
-//     })
-//     .catch(err => {
-//         console.log("ERROR!!")
-//     })
+
 
 // app.use(reqPre); // response logs
 

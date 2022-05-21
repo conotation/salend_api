@@ -26,7 +26,7 @@ const storeSchema = new mongoose.Schema({
         type: String
     },
     s_tag: {
-
+        type: Array
     }
     
 })
