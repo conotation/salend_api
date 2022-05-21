@@ -11,7 +11,16 @@ itemRouter.get('/', (req, res) => {
         .then((items) => {
             res.json(items)
         })
-        .catch(err => res.status.send(err))
+        .catch(err => res.status(400).send(err))
+});
+
+itemRouter.get('/:i_id', (req, res) => {
+    const id = req.params.i_id
+    Item.find({_id: id})
+        .then((item) => {
+            res.json(item[0])
+        })
+        .catch(err => res.status(400).send(err))
 });
 
 itemRouter.get('/test', (req, res) => {
