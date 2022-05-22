@@ -23,11 +23,6 @@ const itemSchema = new mongoose.Schema({
         required: true,
         min: 0
     },
-    i_tag: {
-        type: Number,
-        min: 0,
-        max: 7
-    },
     i_exp: {
         type: String,
     },
@@ -36,6 +31,11 @@ const itemSchema = new mongoose.Schema({
         min: 0,
         max: 3,
         default: 0
+    },
+    i_tag: {
+        type: Number,
+        min: 0,
+        max: 7
     }
 })
 

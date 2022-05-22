@@ -43,14 +43,14 @@ storeRouter.get('/', (req, res) => {
  * {
  * stores: [
  *   {
- *    "_id":"628a036eba4830dcea124c88",
- *    "s_name":"GS21",
- *    "s_address":"서울시 면목동",
- *    "s_time":"00:00-23:59",
- *    "s_image":"https://api.salend.tk/res/image01.jpg",
- *    "s_lat":44.2,
- *    "s_lng":33.1
- *    "s_tag":[],
+ *     "_id":"628a036eba4830dcea124c88",
+ *     "s_name":"GS21",
+ *     "s_address":"서울시 면목동",
+ *     "s_time":"00:00-23:59",
+ *     "s_image":"https://api.salend.tk/res/image01.jpg",
+ *     "s_lat":44.2,
+ *     "s_lng":33.1,
+ *     "s_tag":[]
  *   }
  *  ]
  * }
@@ -162,15 +162,15 @@ storeRouter.get('/:s_id', (req, res) => {
  * 
  * @apiSuccessExample {json} Response (example):
  * {
- *  "_id":"628a036eba4830dcea124c88",
- *  "s_name":"GS21",
- *  "s_address":"서울시 면목동",
- *  "s_time":"00:00-23:59",
- *  "s_image":"https://api.salend.tk/res/image01.jpg",
- *  "s_lat":44.2,
- *  "s_lng":33.1,
- *  "s_tag":[],
- *  "s_certified": true
+ *   "_id":"628a036eba4830dcea124c88",
+ *   "s_name":"GS21",
+ *   "s_address":"서울시 면목동",
+ *   "s_time":"00:00-23:59",
+ *   "s_image":"https://api.salend.tk/res/image01.jpg",
+ *   "s_lat":44.2,
+ *   "s_lng":33.1,
+ *   "s_tag":[],
+ *   "s_certified": true
  * }
  * 
  * @apiError (Error 400) {boolean} success 성공 여부
