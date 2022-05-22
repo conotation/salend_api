@@ -17,18 +17,6 @@ itemRouter.get('/', (req, res) => {
         })
 });
 
-itemRouter.get('/:i_id', (req, res) => {
-    const id = req.params.i_id
-    var response = {}
-    Item.find({_id: id})
-        .then((item) => {
-            res.json(item[0])
-        })
-        .catch(err => {
-            response = { success: false, msg:"Not Found Item"}
-            res.status(400).json(response)
-        })
-});
 
 itemRouter.get('/test', (req, res) => {
     const newItem = new Item({
@@ -48,6 +36,20 @@ itemRouter.get('/test', (req, res) => {
         res.status(400).json(response)
     });
 });
+
+itemRouter.get('/:i_id', (req, res) => {
+    const id = req.params.i_id
+    var response = {}
+    Item.find({_id: id})
+        .then((item) => {
+            res.json(item[0])
+        })
+        .catch(err => {
+            response = { success: false, msg:"Not Found Item"}
+            res.status(400).json(response)
+        })
+});
+
 module.exports = itemRouter;
 
 

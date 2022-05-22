@@ -13,7 +13,7 @@ const storeSchema = new mongoose.Schema({
     s_name: {
         type: String,
     },
-    s_location: {
+    s_address: {
         type: String,
     },
     s_time: {
@@ -25,11 +25,15 @@ const storeSchema = new mongoose.Schema({
     s_lat: {
         type: Number
     },
-    s_lon: {
+    s_lng: {
         type: Number
     },
     s_tag: {
         type: Array
+    },
+    s_certified: {
+        type: Boolean,
+        default: false
     }
     
 })

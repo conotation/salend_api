@@ -5,6 +5,10 @@
 	"title": "salend_api",
 	"url": "https://api.salend.tk",
 	"sampleUrl": null,
+	"header": {
+		"title": "Readme",
+		"filename": "README.md"
+	},
 	"order": [
 		"Common", "Auth", "Item", "Store"
 	]

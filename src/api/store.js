@@ -6,55 +6,10 @@ const path = require('path')
 const fs = require('fs')
 const Store = require('../models/store')
 
-/**
- * 가게 정보
- * 
- * @api {get} /store 가게 쿼리 요청
- * 
- * @apiName getStores
- * @apiGroup Store
- * @apiVersion 1.0.0
- * @apiDescription 가게 정보를 요청합니다.
- * 
- * @apiSuccess {Array[Store]} _ Store 배열
- * @apiSuccess {String} _id 가게에 해당하는 Id
- * @apiSuccess {String} i_name 가게명
- * @apiSuccess {String} i_store_name 
- * @apiSuccess {String} i_image
- * @apiSuccess {Number} i_price
- * @apiSuccess {Number} i_now_price
- * @apiSuccess {Number} i_status
- * @apiSuccess {Number} __v
- * 
- * @apiSuccessExample {json} Response (example):
- * {
- *     [
- *         {
- *          "_id":"6288e7d2e747d7702b9c4986",
- *          "i_name":"snoopy",
- *          "i_store_name":"Myunmok GS23",
- *          "i_image":"https://api.salend.tk/res/A1.jpg",
- *          "i_price":1500,
- *          "i_now_price":1200,
- *          "i_status":0,
- *          "__v":0
- *          }
- *     ]
- * }
- * 
- * @apiError (Error 400) {boolean} success 성공 여부
- * @apiError (Error 400) {String} msg 에러 메시지를 반환합니다
- * 
- * @apiErrorExample {json} Response (example):
- * {
- *  success: false,
- *  msg: "Search Error"
- * }
- */
 
- storeRouter.get('/', (req, res) => {
+storeRouter.get('/', (req, res) => {
     var response = {}
-    Store.find({})
+    Store.find({s_certified: true}, {s_email: false, s_pw: false, __v: false})
         .then((stores) => {
             res.json({stores: stores});
         })
@@ -67,46 +22,47 @@ const Store = require('../models/store')
 /**
  * 가게 정보
  * 
- * @api {get} /store/:_id/ 단일 가게 쿼리 요청
+ * @api {get} /store 가게 쿼리 요청
  * 
- * @apiName getStore
+ * @apiName getStores
  * @apiGroup Store
  * @apiVersion 1.0.0
- * @apiDescription id에 해당하는 가게 정보를 요청합니다.
+ * @apiDescription 가게 정보를 요청합니다.
  * 
- * @apiParam (Parameter) {String} _id 가게 ID
- * 
- * @apiSuccess {Store} _
- * @apiSuccess {String} _id
- * @apiSuccess {String} i_name
- * @apiSuccess {String} i_store_name
- * @apiSuccess {String} i_image
- * @apiSuccess {Number} i_price
- * @apiSuccess {Number} i_now_price
- * @apiSuccess {Number} i_status
- * @apiSuccess {Number} __v
+ * @apiSuccess {Array[Store]} stores Store 배열
+ * @apiSuccess {String} _id 매장 고유 아이디
+ * @apiSuccess {String} s_name 매장명
+ * @apiSuccess {String} s_address 매장 주소
+ * @apiSuccess {String} s_time 영업 시간
+ * @apiSuccess {String} s_image 매장 이미지
+ * @apiSuccess {Number} s_lot 매장 위도
+ * @apiSuccess {Number} s_lng 매장 경도
+ * @apiSuccess {Array} s_tag 매장 카테고리
  * 
  * @apiSuccessExample {json} Response (example):
  * {
- *    "_id":"6288e7d2e747d7702b9c4986",
- *    "i_name":"snoopy",
- *    "i_store_name":"Myunmok GS23",
- *    "i_image":"https://api.salend.tk/res/A1.jpg",
- *    "i_price":1500,
- *    "i_now_price":1200,
- *    "i_status":0,
- *    "__v":0
+ * stores: [
+ *   {
+ *    "_id":"628a036eba4830dcea124c88",
+ *    "s_name":"GS21",
+ *    "s_address":"서울시 면목동",
+ *    "s_time":"00:00-23:59",
+ *    "s_image":"https://api.salend.tk/res/image01.jpg",
+ *    "s_lat":44.2,
+ *    "s_lng":33.1
+ *    "s_tag":[],
+ *   }
+ *  ]
  * }
  * 
  * @apiError (Error 400) {boolean} success 성공 여부
  * @apiError (Error 400) {String} msg 에러 메시지를 반환합니다
  * 
- * @apiErrorExample {json} Error (example):
+ * @apiErrorExample {json} Response (example):
  * {
  *  success: false,
- *  msg: "Not Found Store"
+ *  msg: "Search Error"
  * }
- * 
  */
 
 storeRouter.get('/test', (req, res) => {
@@ -133,11 +89,12 @@ storeRouter.get('/test/:_id', (req, res) => {
 
     const updateStore = {
         s_name: "GS21",
-        s_location: "서울시 면목동",
+        s_address: "서울시 면목동",
         s_time: "00:00-23:59",
         s_image: "https://api.salend.tk/res/image01.jpg",
-        s_lat: 0.0,
-        s_lng: 0.0        
+        s_lat: 44.2,
+        s_lng: 33.1,
+        s_certified: true 
     }
 
     Store.findByIdAndUpdate(id, updateStore)
@@ -152,11 +109,25 @@ storeRouter.get('/test/:_id', (req, res) => {
 
 });
 
+storeRouter.get('/delAll', (req, res) => {
+    var response = {}
+
+    Store.remove({})
+        .then((result) => {
+            console.log(result)
+            res.json(result)
+        })
+        .catch(err => {
+            response = {success: false, msg: "삭제 실패"}
+            res.status(400).json(response)
+        })
+})
+
 storeRouter.get('/:s_id', (req, res) => {
     const id = req.params.s_id;
     var response = {};
 
-    Store.find({_id: id}, {s_pw: false})
+    Store.find({_id: id}, {s_email: false, s_pw: false, __v: false})
         .then((store) => {
             res.json(store[0])
         })
@@ -165,4 +136,51 @@ storeRouter.get('/:s_id', (req, res) => {
             res.status(400).json(response)
         })
 });
+
+/**
+ * 가게 정보
+ * 
+ * @api {get} /store/:_id/ 단일 가게 쿼리 요청
+ * 
+ * @apiName getStore
+ * @apiGroup Store
+ * @apiVersion 1.0.0
+ * @apiDescription id에 해당하는 가게 정보를 요청합니다.
+ * 
+ * @apiParam (Parameter) {String} _id 가게 ID
+ * 
+ * @apiSuccess {Store} _ 매장
+ * @apiSuccess {String} _id 매장 고유 아이디
+ * @apiSuccess {String} s_name 매장명
+ * @apiSuccess {String} s_address 매장 주소
+ * @apiSuccess {String} s_time 영업 시간
+ * @apiSuccess {String} s_image 매장 이미지
+ * @apiSuccess {Number} s_lot 매장 위도
+ * @apiSuccess {Number} s_lng 매장 경도
+ * @apiSuccess {Array} s_tag 매장 카테고리
+ * @apiSuccess {Boolean} s_certified 매장 인증 여부
+ * 
+ * @apiSuccessExample {json} Response (example):
+ * {
+ *  "_id":"628a036eba4830dcea124c88",
+ *  "s_name":"GS21",
+ *  "s_address":"서울시 면목동",
+ *  "s_time":"00:00-23:59",
+ *  "s_image":"https://api.salend.tk/res/image01.jpg",
+ *  "s_lat":44.2,
+ *  "s_lng":33.1,
+ *  "s_tag":[],
+ *  "s_certified": true
+ * }
+ * 
+ * @apiError (Error 400) {boolean} success 성공 여부
+ * @apiError (Error 400) {String} msg 에러 메시지를 반환합니다
+ * 
+ * @apiErrorExample {json} Error (example):
+ * {
+ *  success: false,
+ *  msg: "Not Found Store"
+ * }
+ * 
+ */
 module.exports = storeRouter;
