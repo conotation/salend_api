@@ -1,0 +1,11 @@
+{
+	"name": "SALEND",
+	"version": "1.0.0",
+	"description": "salend 개발 참조용 문서",
+	"title": "salend_api",
+	"url": "https://api.salend.tk",
+	"sampleUrl": null,
+	"order": [
+		"Common", "Auth", "Item", "Store"
+	]
+}

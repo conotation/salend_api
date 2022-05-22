@@ -12,18 +12,21 @@ const storeSchema = new mongoose.Schema({
     },
     s_name: {
         type: String,
-        required: true
     },
     s_location: {
         type: String,
-        required: true
     },
     s_time: {
         type: String,
-        required: true
     },
     s_image: {
         type: String
+    },
+    s_lat: {
+        type: Number
+    },
+    s_lon: {
+        type: Number
     },
     s_tag: {
         type: Array

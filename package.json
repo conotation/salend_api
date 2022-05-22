@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "apidoc": "^0.17.5",
     "blob": "^0.1.0",
     "ejs": "^3.1.7",
     "express": "^4.18.1",
@@ -15,7 +16,7 @@
     "sharp": "^0.30.4"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "doc": "apidoc -i src -o apidoc"
   },
   "repository": {
     "type": "git",
