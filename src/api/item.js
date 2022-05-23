@@ -65,6 +65,8 @@ itemRouter.get('/', (req, res) => {
  * }
  */
 
+// 테스트 케이스 추가용 코드
+
 
 itemRouter.get('/test', (req, res) => {
     const newItem = new Item({
@@ -85,6 +87,72 @@ itemRouter.get('/test', (req, res) => {
         res.status(400).json(response)
     });
 });
+
+///////////////////////////////////////
+
+itemRouter.get('/nearby', async (req, res) => {
+    let response = {}
+    let loc = req.query._loc;
+    if(loc == null || loc == undefined) {
+        response = {success: false, msg: "not found params"}
+        res.status(400).json(response)
+        return;
+    }
+    console.log(loc.split(","));
+
+    let nearby = await Item.find({})
+    let endtime = await Item.find({});
+
+    res.json({near_by: nearby, endtime: endtime})
+});
+
+/**
+ * 상품 정보
+ * 
+ * @api {get} /nearby/?_loc=lat,lng 주위 상품 요청
+ * 
+ * @apiName getNearbyItem
+ * @apiGroup Item
+ * @apiVersion 1.0.0
+ * @apiDescription 주변 상품 정보와 마감임박 상품을 요청합니다.
+ * 
+ * @apiParam (Query string) {Number} _loc 위도 경도
+ * ```
+ * _loc=90.4,123.1
+ * ```
+ * 
+ * @apiSuccess {Array(Item)} near_by 주변 상품
+ * @apiSuccess {Array(Item)} end_time 마감 임박 상품
+ * @apiSuccess {Item} _ 상품
+ * @apiSuccess {String} _id 상품 고유 Id
+ * @apiSuccess {String} i_name 상품 이름
+ * @apiSuccess {String} i_image 상품 이미지
+ * @apiSuccess {String} i_store_name 상품 해당 매장
+ * @apiSuccess {String} i_exp 상품 유통기한
+ * @apiSuccess {Number} i_price 상품 정가
+ * @apiSuccess {Number} i_now_price 상품 할인가
+ * @apiSuccess {Number} i_status 상품 상태
+ * @apiSuccess {Number} i_tag 상품 카테고리
+ * 
+ * @apiSuccessExample {json} Response (example):
+ * {
+ *   "near_by": [
+ *     "Items..."
+ *   ],
+ *   "end_time": [
+ *     "Items..."
+ *   ]
+ * }
+ * 
+ * @apiError (Error 400) {boolean} success 성공 여부
+ * @apiError (Error 400) {String} msg 에러 메시지를 반환합니다
+ * 
+ * @apiErrorExample {json} Response (example):
+ * {
+ *  success: false,
+ *  msg: "Search Failed Nearby"
+ * }
+ */
 
 itemRouter.get('/:i_id', (req, res) => {
     const id = req.params.i_id
