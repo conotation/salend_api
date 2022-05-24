@@ -1,4 +1,5 @@
 "use strict"
+// Item i_store_id 추가
 
 const express = require('express');
 const itemRouter = express.Router();
@@ -98,7 +99,7 @@ itemRouter.get('/nearby', async (req, res) => {
         res.status(400).json(response)
         return;
     }
-    console.log(loc.split(","));
+    console.log(loc.split("%2C"));
 
     let nearby = await Item.find({})
     let endtime = await Item.find({});
@@ -109,7 +110,7 @@ itemRouter.get('/nearby', async (req, res) => {
 /**
  * 상품 정보
  * 
- * @api {get} /nearby/?_loc=lat,lng 주위 상품 요청
+ * @api {get} /item/nearby/?_loc=lat,lng 주위 상품 요청
  * 
  * @apiName getNearbyItem
  * @apiGroup Item
@@ -127,7 +128,8 @@ itemRouter.get('/nearby', async (req, res) => {
  * @apiSuccess {String} _id 상품 고유 Id
  * @apiSuccess {String} i_name 상품 이름
  * @apiSuccess {String} i_image 상품 이미지
- * @apiSuccess {String} i_store_name 상품 해당 매장
+ * @apiSuccess {String} i_store_name 상품 해당 매장의 이름
+ * @apiSuccess {String} i_store_id 상품 해당 매장의 Id
  * @apiSuccess {String} i_exp 상품 유통기한
  * @apiSuccess {Number} i_price 상품 정가
  * @apiSuccess {Number} i_now_price 상품 할인가
@@ -181,7 +183,8 @@ itemRouter.get('/:i_id', (req, res) => {
  * @apiSuccess {String} _id 상품 고유 Id
  * @apiSuccess {String} i_name 상품 이름
  * @apiSuccess {String} i_image 상품 이미지
- * @apiSuccess {String} i_store_name 상품 해당 매장
+ * @apiSuccess {String} i_store_name 상품 해당 매장의 이름
+ * @apiSuccess {String} i_store_id 상품 해당 매장의 Id
  * @apiSuccess {String} i_exp 상품 유통기한
  * @apiSuccess {Number} i_price 상품 정가
  * @apiSuccess {Number} i_now_price 상품 할인가
