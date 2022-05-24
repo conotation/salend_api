@@ -43,9 +43,13 @@ router.get('/cancel_pay', (req, res) => {
     const imp_success = req.query.imp_success
     const error_msg = req.query.error_msg
 
-    response = {imp: imp_uid, merchant: merchant_uid, success: imp_success, msg: error_msg}
+    let response = {imp: imp_uid, merchant: merchant_uid, success: imp_success, msg: error_msg}
     res.json(response)
 });
+
+router.get('/deep', (req, res) => {
+    res.render('deeplink')
+})
 
 router.get('/test', (req, res) => {
 	res.send(req.body);
