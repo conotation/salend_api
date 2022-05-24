@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const Item = require('../models/item')
 
 itemRouter.get('/', (req, res) => {
-    var response = {}
+    let response = {}
     Item.find({__v: false})
         .then((items) => {
             res.json({items: items})
@@ -158,7 +158,7 @@ itemRouter.get('/nearby', async (req, res) => {
 
 itemRouter.get('/:i_id', (req, res) => {
     const id = req.params.i_id
-    var response = {}
+    let response = {}
     Item.find({_id: id})
         .then((item) => {
             res.json(item[0])
