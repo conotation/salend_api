@@ -30,6 +30,10 @@ router.get('/map', (req, res) => {
 	res.render('map')
 })
 
+router.get('/pay', (req, res) => {
+    res.render('pay')
+})
+
 // 이미지 업로드
 router.post('/upload', upload.single('image'), (req, res) => {
     var response = {}

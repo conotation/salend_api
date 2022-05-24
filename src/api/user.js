@@ -58,8 +58,6 @@ userRouter.post('/signup', (req, res) => {
         response = {success: false, msg: "회원가입 실패"}
         res.json(response)
     })
-
-
 });
 
 userRouter.update('/:id', (req, res) => {
