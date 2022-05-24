@@ -60,7 +60,7 @@ userRouter.post('/signup', (req, res) => {
     })
 });
 
-userRouter.update('/:id', (req, res) => {
+userRouter.put('/:id', (req, res) => {
     var response = {};
 
     var s_name = req.body.s_name;

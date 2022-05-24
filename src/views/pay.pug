@@ -3,17 +3,20 @@ head
   meta(charset='utf-8')
   meta(name='viewport', content='width=device-width, initial-scale=1.0')
   title payment test
-  script(src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js')
-body(onload='InitField')
+  script(src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js')
+  script(src='https://cdn.iamport.kr/js/iamport.payment-1.2.0.js')
+body(onload="InitField()")
   script.
     function InitField(){
       var button = document.getElementById("button");
       button.addEventListener('click', kakaopay);
+      console.log("init");
     }
 
     function kakaopay(){
+      console.log("click");
       var IMP = window.IMP; // 생략가능
-      IMP.init('TC0ONETIME');  // 가맹점 식별 코드
+      IMP.init('imp51689944');  // 가맹점 식별 코드
 
       IMP.request_pay({
         pg : 'kakao', // 결제방식
@@ -26,7 +29,7 @@ body(onload='InitField')
         buyer_tel :  '', // 구매자 전화번호
         buyer_addr :  '',  // 구매자 주소
         buyer_postcode :  '',  // 구매자 우편번호
-        m_redirect_url : '/khx/payEnd.action'  // 결제 완료 후 보낼 컨트롤러의 메소드명
+        m_redirect_url : '/test'  // 결제 완료 후 보낼 컨트롤러의 메소드명
       }, function(rsp) {
       if ( rsp.success ) { // 성공시
         var msg = '결제가 완료되었습니다.';
