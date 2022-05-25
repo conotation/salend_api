@@ -7,7 +7,7 @@ const fs = require('fs');
 const Store = require('../models/store');
 
 userRouter.get('/', (req, res) => {
-    var response = {};
+    let response = {};
     Store.find({})
         .then((stores) => {
             res.json({ stores: stores });
@@ -19,9 +19,9 @@ userRouter.get('/', (req, res) => {
 });
 
 userRouter.post('/login', (req, res) => {
-    var response = {}
-    var s_email = req.body.email;
-    var s_pw = req.body.pw;
+    let response = {}
+    let s_email = req.body.email;
+    let s_pw = req.body.pw;
 
     Store.find({s_email: s_email, s_pw: s_pw})
         .then((user) => {
@@ -39,9 +39,9 @@ userRouter.post('/login', (req, res) => {
 });
 
 userRouter.post('/signup', (req, res) => {
-    var response = {};
-    var s_email = req.body.email;
-    var s_pw = req.body.pw;
+    let response = {};
+    let s_email = req.body.email;
+    let s_pw = req.body.pw;
 
     const newUser = new Store({
         s_email: s_email,
@@ -58,17 +58,15 @@ userRouter.post('/signup', (req, res) => {
         response = {success: false, msg: "회원가입 실패"}
         res.json(response)
     })
-
-
 });
 
-userRouter.update('/:id', (req, res) => {
-    var response = {};
+userRouter.put('/:id', (req, res) => {
+    let response = {};
 
-    var s_name = req.body.s_name;
-    var s_address = req.body.s_address;
-    var s_time = req.body.s_time;
-    var s_image = req.body.s_image;
+    let s_name = req.body.s_name;
+    let s_address = req.body.s_address;
+    let s_time = req.body.s_time;
+    let s_image = req.body.s_image;
 
     const updateStore = {
         s_name: s_name,

@@ -8,7 +8,7 @@ const Store = require('../models/store')
 
 
 storeRouter.get('/', (req, res) => {
-    var response = {}
+    let response = {}
     Store.find({s_certified: true}, {s_email: false, s_pw: false, __v: false})
         .then((stores) => {
             res.json({stores: stores});
@@ -66,7 +66,7 @@ storeRouter.get('/', (req, res) => {
  */
 
 storeRouter.get('/test', (req, res) => {
-    var response = {};
+    let response = {};
 
     const newStore = new Store({
         "s_email": "qwerasdf",
@@ -84,8 +84,8 @@ storeRouter.get('/test', (req, res) => {
 });
 
 storeRouter.get('/test/:_id', (req, res) => {
-    var response = {};
-    var id = req.params._id;
+    let response = {};
+    let id = req.params._id;
 
     const updateStore = {
         s_name: "GS21",
@@ -106,11 +106,10 @@ storeRouter.get('/test/:_id', (req, res) => {
         response = { success: false, msg: "Store Updated Failed" }
         res.status(400).json(response)
     });
-
 });
 
 storeRouter.get('/delAll', (req, res) => {
-    var response = {}
+    let response = {}
 
     Store.remove({})
         .then((result) => {
@@ -125,7 +124,7 @@ storeRouter.get('/delAll', (req, res) => {
 
 storeRouter.get('/:s_id', (req, res) => {
     const id = req.params.s_id;
-    var response = {};
+    let response = {};
 
     Store.find({_id: id}, {s_email: false, s_pw: false, __v: false})
         .then((store) => {
