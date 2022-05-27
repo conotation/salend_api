@@ -74,6 +74,8 @@ userRouter.post('/signup', (req, res) => {
 userRouter.put('/:id', (req, res) => {
     const id = req.params.id;
     let response = {};
+    const lat = req.body.lat || 0
+    const lng = req.body.lng || 0
 
     if (id == undefined) {
         response = { success: false, msg: "파라미터 오류" }
@@ -89,7 +91,9 @@ userRouter.put('/:id', (req, res) => {
         s_name: s_name,
         s_address: s_address,
         s_time: s_time,
-        s_image: s_image
+        s_image: s_image,
+        s_lat: lat,
+        s_lng: lng
     }
 
     Store.findByIdAndUpdate(id, updateStore)
