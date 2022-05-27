@@ -29,7 +29,7 @@ db.once("open", () => {
 
 const reqPre = (req, res, next) => {
     console.log(new Date().toLocaleString());
-    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    var fullUrl = req.method + " :: " + req.protocol + '://' + req.get('host') + req.originalUrl;
     console.log(fullUrl);
     next();
 }

@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const storeSchema = new mongoose.Schema({
     s_email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     s_pw: {
         type: String,

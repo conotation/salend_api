@@ -13,6 +13,7 @@ userRouter.get('/', (req, res) => {
             res.json({ stores: stores });
         })
         .catch(err => {
+            console.log(err)
             response = { success: false, msg: "User Search Error" }
             res.status(400).json(response)
         })
@@ -26,12 +27,14 @@ userRouter.post('/login', (req, res) => {
     Store.find({s_email: s_email, s_pw: s_pw})
         .then((user) => {
             if(user.length == 0 || user == []){
+                console.log(err)
                 response = {success: false, msg: "로그인 정보가 없습니다."}
                 res.status(400).json(response);
             }
             res.json(user[0]);
         })
         .catch((err) => {
+            console.log(err)
             response = { success: false, msg: "로그인 실패" }
             res.status(400).json(response);
         })
@@ -55,6 +58,7 @@ userRouter.post('/signup', (req, res) => {
         res.json(response)
     })
     .catch((err) => {
+        console.log(err)
         response = {success: false, msg: "회원가입 실패"}
         res.json(response)
     })
@@ -82,6 +86,7 @@ userRouter.put('/:id', (req, res) => {
             res.json(response)
         })
         .catch((err) => {
+            console.log(err)
             response = {success:false, msg: "매장정보 갱신 실패"}
             res.status(400).json(response)
         })

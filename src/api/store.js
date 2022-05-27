@@ -14,6 +14,7 @@ storeRouter.get('/', (req, res) => {
             res.json({stores: stores});
         })
         .catch(err => {
+            console.log(err)
             response = { success: false, msg:"Search Error"}
             res.status(400).json(response)
         })
@@ -78,6 +79,7 @@ storeRouter.get('/test', (req, res) => {
         console.log(p)
         res.redirect('/store')
     }).catch(err => {
+        console.log(err)
         response = { success: false, msg:"Testcase Create Failed" }
         res.status(400).json(response)
     });
@@ -117,6 +119,7 @@ storeRouter.get('/delAll', (req, res) => {
             res.json(result)
         })
         .catch(err => {
+            console.log(err)
             response = {success: false, msg: "삭제 실패"}
             res.status(400).json(response)
         })
@@ -131,6 +134,7 @@ storeRouter.get('/:s_id', (req, res) => {
             res.json(store[0])
         })
         .catch(err => {
+            console.log(err)
             response = { success: false, msg:"Not Found Store"}
             res.status(400).json(response)
         })
