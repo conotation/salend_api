@@ -106,7 +106,7 @@ itemRouter.get('/nearby', async (req, res) => {
     let nearby = await Item.find({})
     let endtime = await Item.find({});
 
-    res.json({near_by: nearby, endtime: endtime})
+    res.json({near_by: nearby, end_time: endtime})
 });
 
 /**

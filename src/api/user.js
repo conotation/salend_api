@@ -24,11 +24,11 @@ userRouter.post('/login', (req, res) => {
     let s_email = req.body.email;
     let s_pw = req.body.pw;
 
-    Store.find({s_email: s_email, s_pw: s_pw})
+    Store.find({ s_email: s_email, s_pw: s_pw }, { __v: false })
         .then((user) => {
-            if(user.length == 0 || user == []){
+            if (user.length == 0 || user == []) {
                 console.log(err)
-                response = {success: false, msg: "로그인 정보가 없습니다."}
+                response = { success: false, msg: "로그인 정보가 없습니다." }
                 res.status(400).json(response);
             }
             res.json(user[0]);
@@ -43,29 +43,42 @@ userRouter.post('/login', (req, res) => {
 
 userRouter.post('/signup', (req, res) => {
     let response = {};
-    let s_email = req.body.email;
-    let s_pw = req.body.pw;
+    let new_email = req.body.email;
+    let new_pw = req.body.pw;
+
+    console.log(req.body)
+
+    console.log(new_email)
+    console.log(new_pw)
 
     const newUser = new Store({
-        s_email: s_email,
-        s_pw: s_pw
+        "s_email": new_email,
+        "s_pw": new_pw
     });
 
+    console.log(newUser)
+
     newUser.save()
-    .then(p => {
-        console.log(p)
-        response = {success: true }
-        res.json(response)
-    })
-    .catch((err) => {
-        console.log(err)
-        response = {success: false, msg: "회원가입 실패"}
-        res.json(response)
-    })
+        .then(p => {
+            console.log(p)
+            response = { success: true }
+            res.json(response)
+        })
+        .catch((err) => {
+            console.log(err)
+            response = { success: false, msg: "회원가입 실패" }
+            res.json(response)
+        })
 });
 
 userRouter.put('/:id', (req, res) => {
+    const id = req.params.id;
     let response = {};
+
+    if (id == undefined) {
+        response = { success: false, msg: "파라미터 오류" }
+        res.status(400).json(response)
+    }
 
     let s_name = req.body.s_name;
     let s_address = req.body.s_address;
@@ -87,9 +100,35 @@ userRouter.put('/:id', (req, res) => {
         })
         .catch((err) => {
             console.log(err)
-            response = {success:false, msg: "매장정보 갱신 실패"}
+            response = { success: false, msg: "매장정보 갱신 실패" }
             res.status(400).json(response)
         })
 });
+
+userRouter.put('/certified/:id', (req, res) => {
+    const id = req.params.id;
+    let response = {}
+
+    if (id == undefined) {
+        response = { success: false, msg: "파라미터 오류" }
+        res.status(400).json(response)
+    }
+
+    const updateStore = {
+        s_certified: true
+    }
+
+    Store.findByIdAndUpdate(id, updateStore)
+        .then((p) => {
+            console.log(p)
+            response = { success: true }
+            res.json(response)
+        })
+        .catch((err) => {
+            console.log(err)
+            response = { success: false, msg: "인증 갱신 실패" }
+            res.status(400).json(response)
+        });
+})
 
 module.exports = userRouter;
