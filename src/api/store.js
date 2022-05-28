@@ -69,6 +69,10 @@ storeRouter.get('/', (req, res) => {
 storeRouter.get('/test', (req, res) => {
     let response = {};
 
+    Store.find({})
+	.then(p => res.json({stores: p}))
+	return;
+
     const newStore = new Store({
         "s_email": "qwerasdf",
         "s_pw": "1234"
