@@ -91,7 +91,90 @@ itemRouter.get('/test', (req, res) => {
     });
 });
 
-///////////////////////////////////////
+//--------------------------------------------------------------
+
+itemRouter.post('/', (req, res) => {    // 아이탬 생성
+    let response = {}
+
+    let i_store_id = req.body.i_store_id;
+
+    if(i_store_id == undefined) {
+        response = { success: false, msg: "Param Error"}
+        res.status(400).json(response);
+    }
+
+    let i_name = req.body.i_name;
+    let i_store_name = req.body.i_store_name;
+    let i_image = req.body.i_image || "https://api.salend.tk/res/default.png";
+    let i_price = req.body.i_price;
+    let i_now_price = req.body.i_now_price;
+    let i_exp = req.body.i_exp;
+
+    const newItem = new Item({
+        "i_name": i_name,
+        "i_store_name": i_store_name,
+        "i_store_id": i_store_id,
+        "i_image": i_image,
+        "i_price": i_price,
+        "i_now_price": i_now_price,
+        "i_exp": i_exp
+    })
+
+    newItem.save()
+    .then(p => {
+        console.log(p)
+        res.redirect('/item')
+    }).catch(err => {
+        console.log(err)
+        response = { success: false, msg:"Item Create Failed" }
+        res.status(400).json(response)
+    });
+});
+
+
+itemRouter.put('/:_id', (req, res) => {     // 아이템 수정
+    let response = {}
+
+    let i_id = req.params._id;
+    if(i_id == undefined) {
+        response = { success: false, msg: "Param Error" }
+        res.status(400).json(response)
+    }
+
+    let i_name = req.body.i_name;
+    let i_store_name = req.body.i_store_name;
+    let i_store_id = req.body.i_store_id;
+    let i_image = req.body.i_image || "https://api.salend.tk/res/default.png";
+    let i_price = req.body.i_price;
+    let i_now_price = req.body.i_now_price;
+    let i_exp = req.body.i_exp;
+
+    const updateItem = {
+        "i_name": i_name,
+        "i_store_name": i_store_name,
+        "i_store_id": i_store_id,
+        "i_image": i_image,
+        "i_price": i_price,
+        "i_now_price": i_now_price,
+        "i_exp": i_exp
+    }
+
+    Object.keys(updateItem).forEach(key => updateItem[key] === undefined ? delete updateItem[key] : {});
+
+    console.log(updateItem)
+
+    Item.findByIdAndUpdate(i_id, updateItem)
+    .then(p => {
+        console.log(p)
+        response = {success: true}
+        res.json(response)
+    }).catch(err => {
+        console.log(err)
+        response = { success: false, msg:"Item Update Failed" }
+        res.status(400).json(response)
+    });
+});
+
 
 itemRouter.get('/nearby', async (req, res) => {
     let response = {}
