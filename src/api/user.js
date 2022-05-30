@@ -21,10 +21,10 @@ userRouter.get('/', (req, res) => {
 
 userRouter.post('/login', (req, res) => {
     let response = {}
-    let s_email = req.body.email;
-    let s_pw = req.body.pw;
+    let s_email = req.body.s_email;
+    let s_pw = req.body.s_pw;
 
-    Store.find({ s_email: s_email, s_pw: s_pw }, { __v: false })
+    Store.find({ s_email: s_email, s_pw: s_pw }, { s_email:false, s_pw: false, __v: false })
         .then((user) => {
             if (user.length == 0 || user == []) {
                 console.log(err)
@@ -38,13 +38,71 @@ userRouter.post('/login', (req, res) => {
             response = { success: false, msg: "로그인 실패" }
             res.status(400).json(response);
         })
-
 });
+
+/**
+ * 매장 정보
+ * 
+ * @api {post} /login 로그인 처리
+ * 
+ * @apiName login
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ * @apiDescription 로그인을 시도합니다
+ * 
+ * @apiParam (Body) {String} s_email 매장 아이디
+ * @apiParam (Body) {String} s_pw   매장 비밀번호
+ * 
+ * @apiSuccess {Store} _ 매장
+ * @apiSuccess {String} _id 매장 고유 Id
+ * @apiSuccess {String?} s_name 매장명
+ * @apiSuccess {String?} s_address 매장 주소
+ * @apiSuccess {String?} s_time 영업 시간
+ * @apiSuccess {String?} s_image 매장 이미지
+ * @apiSuccess {Number?} s_lot 매장 위도
+ * @apiSuccess {Number?} s_lng 매장 경도
+ * @apiSuccess {Array} s_tag 매장 카테고리
+ * @apiSuccess {Boolean} s_certified 매장 인증 여부
+ * 
+ * 매장설정이 되지 않은 경우 ?가 붙은 필드는 넘어오지 않을 수도 있습니다.
+ * 
+ * @apiSuccessExample {json} Response (example):
+ * {
+ * stores: [
+ *   {
+ *     "_id":"6288e7d2e747d7702b9c4986",
+ *     "i_name":"snoopy",
+ *     "i_image":"https://api.salend.tk/res/A1.jpg",
+ *     "i_store_name":"Myunmok GS23",
+ *     "i_exp":"2022-05-22",
+ *     "i_price":1500,
+ *     "i_now_price":1200,
+ *     "i_status":0,
+ *     "i_tag": 0
+ *   }
+ *  ]
+ * }
+ * 
+ * @apiError (Error 400) {boolean} success 성공 여부
+ * @apiError (Error 400) {String} msg 에러 메시지를 반환합니다
+ * 
+ * @apiErrorExample {json} Response (example):
+ * {
+ *  success: false,
+ *  msg: "로그인 정보가 없습니다."
+ * }
+ * 
+ * @apiErrorExample {json} Response (example):
+ * {
+ *  success: false,
+ *  msg: "로그인 실패"
+ * }
+ */
 
 userRouter.post('/signup', (req, res) => {
     let response = {};
-    let new_email = req.body.email;
-    let new_pw = req.body.pw;
+    let new_email = req.body.s_email;
+    let new_pw = req.body.s_pw;
 
     console.log(req.body)
 
@@ -70,6 +128,37 @@ userRouter.post('/signup', (req, res) => {
             res.json(response)
         })
 });
+
+/**
+ * 매장 정보
+ * 
+ * @api {post} /signup 회원가입 처리
+ * 
+ * @apiName signup
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ * @apiDescription 회원가입을 시도합니다
+ *
+ * @apiParam (Body) {String} s_email 매장 아이디
+ * @apiParam (Body) {String} s_pw   매장 비밀번호
+ * 
+ * @apiSuccess {Boolean} success 성공 여부
+ * 
+ * @apiSuccessExample {json} Response (example):
+ * {
+ *    "success": true 
+ * }
+ * 
+ * @apiError (Error 400) {boolean} success 성공 여부
+ * @apiError (Error 400) {String} msg 에러 메시지를 반환합니다
+ * 
+ * @apiErrorExample {json} Response (example):
+ * {
+ *  success: false,
+ *  msg: "회원가입 실패"
+ * }
+ * 
+ */
 
 userRouter.put('/:id', (req, res) => {
     const id = req.params.id;
@@ -109,6 +198,45 @@ userRouter.put('/:id', (req, res) => {
         })
 });
 
+/**
+ * 매장 정보
+ * 
+ * @api {put} /:id 매장정보 갱신
+ * 
+ * @apiName updateStoreInfo
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ * @apiDescription 매장 정보를 갱신합니다.
+ *
+ * @apiParam (Body) {String} id 매장 아이디
+ * @apiParam (Body) {Number!} lat   매장 경도
+ * @apiParam (Body) {Number!} lng   매장 위도
+ * @apiParam (Body) {String!} s_name   매장명
+ * @apiParam (Body) {String!} s_address   매장 주소
+ * @apiParam (Body) {String!} s_s_time   매장 영업시간
+ * @apiParam (Body) {String!} s_s_image   매장 이미지
+ * 
+ * 특정한 필드만 전송할 경우 그 필드만 업데이트됩니다.
+ * 
+ * @apiSuccess {Boolean} success 성공 여부
+ * 
+ * @apiSuccessExample {json} Response (example):
+ * {
+ *    "success": true 
+ * }
+ * 
+ * @apiError (Error 400) {boolean} success 성공 여부
+ * @apiError (Error 400) {String} msg 에러 메시지를 반환합니다
+ * 
+ * @apiErrorExample {json} Response (example):
+ * {
+ *  success: false,
+ *  msg: "매장정보 갱신 실패"
+ * }
+ * 
+ */
+
+
 userRouter.put('/certified/:id', (req, res) => {
     const id = req.params.id;
     let response = {}
@@ -134,5 +262,35 @@ userRouter.put('/certified/:id', (req, res) => {
             res.status(400).json(response)
         });
 })
+
+/**
+ * 매장 정보
+ * 
+ * @api {put} /certified/:id 매장 인증 처리
+ * 
+ * @apiName certified
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ * @apiDescription 매장을 인증처리합니다.
+ *
+ * @apiParam (Body) {String} id 매장 아이디
+ * 
+ * @apiSuccess {Boolean} success 성공 여부
+ * 
+ * @apiSuccessExample {json} Response (example):
+ * {
+ *    "success": true 
+ * }
+ * 
+ * @apiError (Error 400) {boolean} success 성공 여부
+ * @apiError (Error 400) {String} msg 에러 메시지를 반환합니다
+ * 
+ * @apiErrorExample {json} Response (example):
+ * {
+ *  success: false,
+ *  msg: "인증 갱신 실패"
+ * }
+ * 
+ */
 
 module.exports = userRouter;

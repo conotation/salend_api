@@ -10,6 +10,6 @@
 		"filename": "README.md"
 	},
 	"order": [
-		"Common", "Auth", "Item", "Store"
+		"Common", "Auth", "Item", "Store", "User"
 	]
 }
