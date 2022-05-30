@@ -43,28 +43,30 @@ userRouter.post('/login', (req, res) => {
 /**
  * 매장 정보
  * 
- * @api {post} /login 로그인 처리
+ * @api {post} user/login 로그인 처리
  * 
  * @apiName login
  * @apiGroup User
  * @apiVersion 1.0.0
- * @apiDescription 로그인을 시도합니다
+ * @apiDescription 로그인을 시도합니다 
+ * 
+ * 매장설정이 되지 않은 경우 *가 붙은 필드는 넘어오지 않을 수도 있습니다.
  * 
  * @apiParam (Body) {String} s_email 매장 아이디
  * @apiParam (Body) {String} s_pw   매장 비밀번호
  * 
  * @apiSuccess {Store} _ 매장
  * @apiSuccess {String} _id 매장 고유 Id
- * @apiSuccess {String?} s_name 매장명
- * @apiSuccess {String?} s_address 매장 주소
- * @apiSuccess {String?} s_time 영업 시간
- * @apiSuccess {String?} s_image 매장 이미지
- * @apiSuccess {Number?} s_lot 매장 위도
- * @apiSuccess {Number?} s_lng 매장 경도
+ * @apiSuccess {String} s_name 매장명 *
+ * @apiSuccess {String} s_address 매장 주소 *
+ * @apiSuccess {String} s_time 영업 시간 *
+ * @apiSuccess {String} s_image 매장 이미지 *
+ * @apiSuccess {Number} s_lot 매장 위도 *
+ * @apiSuccess {Number} s_lng 매장 경도 *
  * @apiSuccess {Array} s_tag 매장 카테고리
  * @apiSuccess {Boolean} s_certified 매장 인증 여부
  * 
- * 매장설정이 되지 않은 경우 ?가 붙은 필드는 넘어오지 않을 수도 있습니다.
+ * 
  * 
  * @apiSuccessExample {json} Response (example):
  * {
@@ -132,7 +134,7 @@ userRouter.post('/signup', (req, res) => {
 /**
  * 매장 정보
  * 
- * @api {post} /signup 회원가입 처리
+ * @api {post} user/signup 회원가입 처리
  * 
  * @apiName signup
  * @apiGroup User
@@ -146,7 +148,7 @@ userRouter.post('/signup', (req, res) => {
  * 
  * @apiSuccessExample {json} Response (example):
  * {
- *    "success": true 
+ *    success: true 
  * }
  * 
  * @apiError (Error 400) {boolean} success 성공 여부
@@ -201,28 +203,30 @@ userRouter.put('/:id', (req, res) => {
 /**
  * 매장 정보
  * 
- * @api {put} /:id 매장정보 갱신
+ * @api {put} user/:id 매장정보 갱신
  * 
  * @apiName updateStoreInfo
  * @apiGroup User
  * @apiVersion 1.0.0
- * @apiDescription 매장 정보를 갱신합니다.
- *
- * @apiParam (Body) {String} id 매장 아이디
- * @apiParam (Body) {Number!} lat   매장 경도
- * @apiParam (Body) {Number!} lng   매장 위도
- * @apiParam (Body) {String!} s_name   매장명
- * @apiParam (Body) {String!} s_address   매장 주소
- * @apiParam (Body) {String!} s_s_time   매장 영업시간
- * @apiParam (Body) {String!} s_s_image   매장 이미지
+ * @apiDescription 매장 정보를 갱신합니다. 
  * 
  * 특정한 필드만 전송할 경우 그 필드만 업데이트됩니다.
+ *
+ * @apiParam (Body) {String} id 매장 아이디
+ * @apiParam (Body) {Number} lat   매장 경도 *
+ * @apiParam (Body) {Number} lng   매장 위도 *
+ * @apiParam (Body) {String} s_name   매장명 *
+ * @apiParam (Body) {String} s_address   매장 주소 *
+ * @apiParam (Body) {String} s_s_time   매장 영업시간 *
+ * @apiParam (Body) {String} s_s_image   매장 이미지 *
+ * 
+ * 
  * 
  * @apiSuccess {Boolean} success 성공 여부
  * 
  * @apiSuccessExample {json} Response (example):
  * {
- *    "success": true 
+ *    success: true 
  * }
  * 
  * @apiError (Error 400) {boolean} success 성공 여부
@@ -266,7 +270,7 @@ userRouter.put('/certified/:id', (req, res) => {
 /**
  * 매장 정보
  * 
- * @api {put} /certified/:id 매장 인증 처리
+ * @api {put} user/certified/:id 매장 인증 처리
  * 
  * @apiName certified
  * @apiGroup User
@@ -279,7 +283,7 @@ userRouter.put('/certified/:id', (req, res) => {
  * 
  * @apiSuccessExample {json} Response (example):
  * {
- *    "success": true 
+ *    success: true 
  * }
  * 
  * @apiError (Error 400) {boolean} success 성공 여부
