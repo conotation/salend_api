@@ -43,7 +43,7 @@ userRouter.post('/login', (req, res) => {
 /**
  * 매장 정보
  * 
- * @api {post} user/login 로그인 처리
+ * @api {post} /user/login 로그인 처리
  * 
  * @apiName login
  * @apiGroup User
@@ -101,7 +101,7 @@ userRouter.post('/login', (req, res) => {
  * }
  */
 
-userRouter.post('/signup', (req, res) => {
+userRouter.post('/', (req, res) => {
     let response = {};
     let new_email = req.body.s_email;
     let new_pw = req.body.s_pw;
@@ -115,8 +115,6 @@ userRouter.post('/signup', (req, res) => {
         "s_email": new_email,
         "s_pw": new_pw
     });
-
-    console.log(newUser)
 
     newUser.save()
         .then(p => {
@@ -134,7 +132,7 @@ userRouter.post('/signup', (req, res) => {
 /**
  * 매장 정보
  * 
- * @api {post} user/signup 회원가입 처리
+ * @api {post} /user/signup 회원가입 처리
  * 
  * @apiName signup
  * @apiGroup User
@@ -176,7 +174,7 @@ userRouter.put('/:id', (req, res) => {
     let s_name = req.body.s_name;
     let s_address = req.body.s_address;
     let s_time = req.body.s_time;
-    let s_image = req.body.s_image;
+    let s_image = req.body.s_image || "https://api.salend.tk/res/default.png";
 
     const updateStore = {
         s_name: s_name,
@@ -203,7 +201,7 @@ userRouter.put('/:id', (req, res) => {
 /**
  * 매장 정보
  * 
- * @api {put} user/:id 매장정보 갱신
+ * @api {put} /user/:id 매장정보 갱신
  * 
  * @apiName updateStoreInfo
  * @apiGroup User
@@ -217,8 +215,8 @@ userRouter.put('/:id', (req, res) => {
  * @apiParam (Body) {Number} lng   매장 위도 *
  * @apiParam (Body) {String} s_name   매장명 *
  * @apiParam (Body) {String} s_address   매장 주소 *
- * @apiParam (Body) {String} s_s_time   매장 영업시간 *
- * @apiParam (Body) {String} s_s_image   매장 이미지 *
+ * @apiParam (Body) {String} s_time   매장 영업시간 *
+ * @apiParam (Body) {String} s_mage   매장 이미지 *
  * 
  * 
  * 
@@ -270,7 +268,7 @@ userRouter.put('/certified/:id', (req, res) => {
 /**
  * 매장 정보
  * 
- * @api {put} user/certified/:id 매장 인증 처리
+ * @api {put} /user/certified/:id 매장 인증 처리
  * 
  * @apiName certified
  * @apiGroup User

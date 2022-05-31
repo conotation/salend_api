@@ -5,6 +5,7 @@ const storeRouter = express.Router();
 const path = require('path')
 const fs = require('fs')
 const Store = require('../models/store')
+const Item = require('../models/item')
 
 
 storeRouter.get('/', (req, res) => {
@@ -65,69 +66,6 @@ storeRouter.get('/', (req, res) => {
  *  msg: "Search Error"
  * }
  */
-
-storeRouter.get('/test', (req, res) => {
-    let response = {};
-
-    Store.find({})
-	.then(p => res.json({stores: p}))
-	return;
-
-    const newStore = new Store({
-        "s_email": "qwerasdf",
-        "s_pw": "1234"
-    })
-
-    newStore.save()
-    .then(p => {
-        console.log(p)
-        res.redirect('/store')
-    }).catch(err => {
-        console.log(err)
-        response = { success: false, msg:"Testcase Create Failed" }
-        res.status(400).json(response)
-    });
-});
-
-storeRouter.get('/test/:_id', (req, res) => {
-    let response = {};
-    let id = req.params._id;
-
-    const updateStore = {
-        s_name: "GS21",
-        s_address: "서울시 면목동",
-        s_time: "00:00-23:59",
-        s_image: "https://api.salend.tk/res/image01.jpg",
-        s_lat: 44.2,
-        s_lng: 33.1,
-        s_certified: true 
-    }
-
-    Store.findByIdAndUpdate(id, updateStore)
-    .then(p => {
-        console.log(p)
-        res.redirect('/store')
-    }).catch(err => {
-        console.log(err)
-        response = { success: false, msg: "Store Updated Failed" }
-        res.status(400).json(response)
-    });
-});
-
-storeRouter.get('/delAll', (req, res) => {
-    let response = {}
-
-    Store.remove({})
-        .then((result) => {
-            console.log(result)
-            res.json(result)
-        })
-        .catch(err => {
-            console.log(err)
-            response = {success: false, msg: "삭제 실패"}
-            res.status(400).json(response)
-        })
-})
 
 storeRouter.get('/:s_id', (req, res) => {
     const id = req.params.s_id;
@@ -190,4 +128,68 @@ storeRouter.get('/:s_id', (req, res) => {
  * }
  * 
  */
+
+storeRouter.get('/test', (req, res) => {
+    let response = {};
+
+    Store.find({})
+    .then(p => res.json({stores: p}))
+    return;
+
+    const newStore = new Store({
+        "s_email": "qwerasdf",
+        "s_pw": "1234"
+    })
+
+    newStore.save()
+    .then(p => {
+        console.log(p)
+        res.redirect('/store')
+    }).catch(err => {
+        console.log(err)
+        response = { success: false, msg:"Testcase Create Failed" }
+        res.status(400).json(response)
+    });
+});
+
+storeRouter.get('/test/:_id', (req, res) => {
+    let response = {};
+    let id = req.params._id;
+
+    const updateStore = {
+        s_name: "GS21",
+        s_address: "서울시 면목동",
+        s_time: "00:00-23:59",
+        s_image: "https://api.salend.tk/res/image01.jpg",
+        s_lat: 44.2,
+        s_lng: 33.1,
+        s_certified: true 
+    }
+
+    Store.findByIdAndUpdate(id, updateStore)
+    .then(p => {
+        console.log(p)
+        res.redirect('/store')
+    }).catch(err => {
+        console.log(err)
+        response = { success: false, msg: "Store Updated Failed" }
+        res.status(400).json(response)
+    });
+});
+
+storeRouter.get('/delAll', (req, res) => {
+    let response = {}
+
+    Store.remove({})
+        .then((result) => {
+            console.log(result)
+            res.json(result)
+        })
+        .catch(err => {
+            console.log(err)
+            response = {success: false, msg: "삭제 실패"}
+            res.status(400).json(response)
+        })
+})
+
 module.exports = storeRouter;

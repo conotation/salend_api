@@ -30,6 +30,11 @@ router.get('/map', (req, res) => {
 	res.render('map')
 })
 
+router.get('/geo', (req, res) => {  // 필요성 재판단 중
+    const loc = {location: req.body.loc}
+    res.render('geo', loc)
+});
+
 router.get('/pay', (req, res) => {
     let value = {item: "기본 값", value: 8000}
     if(req.query.item != undefined && value != undefined)
@@ -46,14 +51,6 @@ router.get('/cancel_pay', (req, res) => {
     let response = {imp: imp_uid, merchant: merchant_uid, success: imp_success, msg: error_msg}
     res.json(response)
 });
-
-router.get('/deep', (req, res) => {
-    res.render('deeplink')
-})
-
-router.get('/test', (req, res) => {
-	res.send(req.body);
-})
 
 // 이미지 업로드
 router.post('/upload', upload.single('image'), (req, res) => {

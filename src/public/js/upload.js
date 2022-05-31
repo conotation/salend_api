@@ -22,6 +22,7 @@ function upload() {
                 var img = document.createElement("img");
                 img.src = document.URL + "image/" + data.filename;
                 img.style.width = "100px";
+                img.style.height = "100px";
                 divimg.appendChild(img);
             }
             console.log(data.msg)

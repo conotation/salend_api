@@ -1,0 +1,17 @@
+doctype html
+head
+  meta(charset='utf-8')
+  script(type='text/javascript', src='https://dapi.kakao.com/v2/maps/sdk.js?appkey=da8322b3e666b7e54a05694adbd91cfc&libraries=services')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js')
+body(onload='getGeo()')
+  script.
+    getGeo = () => {
+    let loc = "#{location}"
+    const geocoder = new kakao.maps.services.Geocoder();
+    let callback = (res, stat) => {
+    console.log(res[0].x, res[0].y);
+    document.write()
+    }
+    }
+
+// 구현 중단 (필요성 재판단 중)

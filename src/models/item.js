@@ -9,9 +9,12 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    i_image: {
+    i_store_id: {
         type: String,
         required: true
+    },
+    i_image: {
+        type: String,
     },
     i_price: {
         type: Number,
