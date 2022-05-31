@@ -13,7 +13,7 @@ function upload() {
         body: formData,
     }
 
-    fetch("/store/upload", options)
+    fetch("/upload", options)
     .then((res) => res.json())
         .then((data) => {
             console.log(data.success)
