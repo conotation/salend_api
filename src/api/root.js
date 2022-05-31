@@ -78,7 +78,7 @@ router.post('/upload', upload.single('image'), (req, res) => {
         response = { success: false, msg:"Image Upload Failed"}
         res.status(400).json(response)
     }
-    response = { success: true, filename: req.file.path }
+    response = { success: true, filename: req.file.filename }
     res.json(response);
 });
 
