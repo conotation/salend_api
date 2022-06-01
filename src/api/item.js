@@ -328,70 +328,14 @@ itemRouter.get('/nearby', async (req, res) => {
  * }
  */
 
-itemRouter.get('/:i_id', (req, res) => {
-    const id = req.params.i_id
-    let response = {}
-    Item.find({i_store_id: id}, {__v: false})
-        .then((item) => {
-            res.json({items: item})
-        })
-        .catch(err => {
-            console.log(err)
-            response = { success: false, msg:"Not Found Item"}
-            res.status(400).json(response)
-        })
-});
-
-/**
- * 상품 정보
- * 
- * @api {get} /item/:_id 단일 상품 쿼리 요청
- * 
- * @apiName getItem
- * @apiGroup Item
- * @apiVersion 1.0.0
- * @apiDescription 해당 Id 매장의 상품을 모두 가져옵니다.
- * 
- * 
- * @apiSuccess {Item} _ 상품
- * @apiSuccess {String} _id 상품 고유 Id
- * @apiSuccess {String} i_name 상품 이름
- * @apiSuccess {String} i_image 상품 이미지
- * @apiSuccess {String} i_store_name 상품 해당 매장의 이름
- * @apiSuccess {String} i_store_id 상품 해당 매장의 Id
- * @apiSuccess {String} i_exp 상품 유통기한
- * @apiSuccess {Number} i_price 상품 정가
- * @apiSuccess {Number} i_now_price 상품 할인가
- * @apiSuccess {Number} i_status 상품 상태
- * @apiSuccess {Number} i_tag 상품 카테고리
- * 
- * @apiSuccessExample {json} Response (example):
- * {
- *   "_id":"6288e7d2e747d7702b9c4986",
- *   "i_name":"snoopy",
- *   "i_image":"https://api.salend.tk/res/A1.jpg",
- *   "i_store_name":"Myunmok GS23",
- *   "i_exp":"2022-05-22",
- *   "i_price":1500,
- *   "i_now_price":1200,
- *   "i_status":0,
- *   "i_tag": 0
- * }
- * 
- * @apiError (Error 400) {boolean} success 성공 여부
- * @apiError (Error 400) {String} msg 에러 메시지를 반환합니다
- * 
- * @apiErrorExample {json} Response (example):
- * {
- *  success: false,
- *  msg: "Item Search Error"
- * }
- */
-
 itemRouter.get('/search', (req, res) => {
     const query = req.body.query
+
+    const search = {$text: {$search: query}}
     let response = {}
-    Item.find({$text: {$search: query}})
+    console.log(search)
+
+    Item.find(search)
     .then((p) => {
         res.json({items: p})
     }).catch(err => {
@@ -401,10 +345,11 @@ itemRouter.get('/search', (req, res) => {
     })
 })
 
+
 /**
  * 상품 정보
  * 
- * @api {GET} /item/search 단일 상품 쿼리 요청
+ * @api {GET} /item/search 상품 검색 기능
  * 
  * @apiName searchItem
  * @apiGroup Item
