@@ -331,9 +331,9 @@ itemRouter.get('/nearby', async (req, res) => {
 itemRouter.get('/:i_id', (req, res) => {
     const id = req.params.i_id
     let response = {}
-    Item.find({_id: id})
+    Item.find({i_store_id: id}, {__v: false})
         .then((item) => {
-            res.json(item[0])
+            res.json({items: item})
         })
         .catch(err => {
             console.log(err)
@@ -350,7 +350,8 @@ itemRouter.get('/:i_id', (req, res) => {
  * @apiName getItem
  * @apiGroup Item
  * @apiVersion 1.0.0
- * @apiDescription 상품 정보를 요청합니다.
+ * @apiDescription 해당 Id 매장의 상품을 모두 가져옵니다.
+ * 
  * 
  * @apiSuccess {Item} _ 상품
  * @apiSuccess {String} _id 상품 고유 Id

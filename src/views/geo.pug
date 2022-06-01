@@ -10,7 +10,7 @@ body(onload='getGeo()')
     const geocoder = new kakao.maps.services.Geocoder();
     let callback = (res, stat) => {
     console.log(res[0].x, res[0].y);
-    document.write()
+    document.write(res[0].x + " " + res[0].y)
     }
     }
 
