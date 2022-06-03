@@ -136,7 +136,7 @@ storeRouter.get('/category/:category', (req, res) => {
 storeRouter.get('/search', (req, res) => {
     const  query = req.body.query
 
-    const search = {$texT: {$search: query}}
+    const search = {s_name: '/'+query+'/'}
     let response = {}
     console.log(search)
 
@@ -147,7 +147,7 @@ storeRouter.get('/search', (req, res) => {
         console.log(err);
         response = {success:false, msg: "Search Store Failed"}
         res.status(400).json(response)
-    }
+    })
 })
 
 /**
