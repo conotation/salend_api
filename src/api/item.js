@@ -225,6 +225,7 @@ itemRouter.put('/:_id', (req, res) => {     // 아이템 수정
  * @apiParam (Body) {Number} i_now_price 상품의 할인 가격 *
  * @apiParam (Body) {String} i_exp 상품 유통 기한 *
  * @apiParam (Body) {Number} i_status 상품 상태 *
+ * @apiParam (Body) {Number} i_tag 아이템 카테고리 *
  * 
  * @apiSuccess {Store} _ 상품
  * @apiSuccess {String} _id 매장 고유 Id
@@ -335,7 +336,7 @@ itemRouter.get('/search', (req, res) => {
     let response = {}
     console.log(search)
 
-    Item.find(search)
+    Item.find(search, {__v: false})
     .then((p) => {
         res.json({items: p})
     }).catch(err => {

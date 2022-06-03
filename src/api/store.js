@@ -67,6 +67,27 @@ storeRouter.get('/', (req, res) => {
  * }
  */
 
+storeRouter.get('/category/:category', (req, res) => {
+    const category = req.params.category
+
+    let q = []
+    Item.find({i_tag: category},{i_store_id: true})
+    .then(e => e.forEach(e => {
+        if(e.i_store_id)
+            q.push(e.i_store_id)
+    }))
+    .then({
+        Store.find(_id: ($in: q))
+        .then(store => {
+            res.json(store)
+        })
+    })
+    .catch(e => {
+        res.status.json({success: false, msg: "test"})
+    })
+});
+
+
 storeRouter.get('/:s_id', (req, res) => {
     const id = req.params.s_id;
     let response = {};
