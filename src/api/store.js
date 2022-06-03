@@ -76,16 +76,62 @@ storeRouter.get('/category/:category', (req, res) => {
         if(e.i_store_id)
             q.push(e.i_store_id)
     }))
-    .then({
-        Store.find(_id: ($in: q))
+    .then(e => {
+        Store.find({_id: {"$in": q}})
         .then(store => {
-            res.json(store)
+            res.json({stores: store})
         })
     })
     .catch(e => {
         res.status.json({success: false, msg: "test"})
     })
 });
+
+/**
+ * 가게 정보
+ * 
+ * @api {get} /store/category/:category 매장 카테고리 검색
+ * 
+ * @apiName searchCategoryStores
+ * @apiGroup Store
+ * @apiVersion 1.0.0
+ * @apiDescription 매장을 카테고리 별로 검색합니다. (0~7)
+ * 
+ * @apiSuccess {Array[Store]} stores Store 배열
+ * @apiSuccess {String} _id 매장 고유 아이디
+ * @apiSuccess {String} s_name 매장명
+ * @apiSuccess {String} s_address 매장 주소
+ * @apiSuccess {String} s_time 영업 시간
+ * @apiSuccess {String} s_image 매장 이미지
+ * @apiSuccess {Number} s_lot 매장 위도
+ * @apiSuccess {Number} s_lng 매장 경도
+ * @apiSuccess {Array} s_tag 매장 카테고리
+ * 
+ * @apiSuccessExample {json} Response (example):
+ * {
+ * stores: [
+ *   {
+ *     "_id":"628a036eba4830dcea124c88",
+ *     "s_name":"GS21",
+ *     "s_address":"서울시 면목동",
+ *     "s_time":"00:00-23:59",
+ *     "s_image":"https://api.salend.tk/res/image01.jpg",
+ *     "s_lat":44.2,
+ *     "s_lng":33.1,
+ *     "s_tag":[]
+ *   }
+ *  ]
+ * }
+ * 
+ * @apiError (Error 400) {boolean} success 성공 여부
+ * @apiError (Error 400) {String} msg 에러 메시지를 반환합니다
+ * 
+ * @apiErrorExample {json} Response (example):
+ * {
+ *  success: false,
+ *  msg: "Search Error"
+ * }
+ */
 
 
 storeRouter.get('/:s_id', (req, res) => {
