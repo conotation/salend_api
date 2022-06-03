@@ -136,7 +136,7 @@ storeRouter.get('/category/:category', (req, res) => {
 storeRouter.get('/search', (req, res) => {
     const  query = req.body.query
 
-    const search = {s_name: '/'+query+'/'}
+    const search = {s_name: {'$regex': query}}
     let response = {}
     console.log(search)
 
