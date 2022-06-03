@@ -83,7 +83,7 @@ storeRouter.get('/category/:category', (req, res) => {
         })
     })
     .catch(e => {
-        res.status.json({success: false, msg: "test"})
+        res.status.json({success: false, msg: "Search Category Store Failed"})
     })
 });
 
@@ -129,8 +129,72 @@ storeRouter.get('/category/:category', (req, res) => {
  * @apiErrorExample {json} Response (example):
  * {
  *  success: false,
- *  msg: "Search Error"
+ *  msg: "Search Category Store Failed"
  * }
+ */
+
+storeRouter.get('/search', (req, res) => {
+    const  query = req.body.query
+
+    const search = {$texT: {$search: query}}
+    let response = {}
+    console.log(search)
+
+    Store.find(search, {__v: false})
+    .then((s) => {
+        res.json({stores: s})
+    }).catch(err => {
+        console.log(err);
+        response = {success:false, msg: "Search Store Failed"}
+        res.status(400).json(response)
+    }
+})
+
+/**
+ * 가게 정보
+ * 
+ * @api {get} /store/search 매장 검색 기능
+ * 
+ * @apiName searchStore
+ * @apiGroup Store
+ * @apiVersion 1.0.0
+ * @apiDescription 매장명를 기준으로 매장을 검색합니다.
+ * 
+ * @apiParam (Body) {String} query 검색어
+ * 
+ * @apiSuccess {Store} _ 매장
+ * @apiSuccess {String} _id 매장 고유 아이디
+ * @apiSuccess {String} s_name 매장명
+ * @apiSuccess {String} s_address 매장 주소
+ * @apiSuccess {String} s_time 영업 시간
+ * @apiSuccess {String} s_image 매장 이미지
+ * @apiSuccess {Number} s_lot 매장 위도
+ * @apiSuccess {Number} s_lng 매장 경도
+ * @apiSuccess {Array} s_tag 매장 카테고리
+ * @apiSuccess {Boolean} s_certified 매장 인증 여부
+ * 
+ * @apiSuccessExample {json} Response (example):
+ * {
+ *   "_id":"628a036eba4830dcea124c88",
+ *   "s_name":"GS21",
+ *   "s_address":"서울시 면목동",
+ *   "s_time":"00:00-23:59",
+ *   "s_image":"https://api.salend.tk/res/image01.jpg",
+ *   "s_lat":44.2,
+ *   "s_lng":33.1,
+ *   "s_tag":[],
+ *   "s_certified": true
+ * }
+ * 
+ * @apiError (Error 400) {boolean} success 성공 여부
+ * @apiError (Error 400) {String} msg 에러 메시지를 반환합니다
+ * 
+ * @apiErrorExample {json} Error (example):
+ * {
+ *  success: false,
+ *  msg: "Search Failed Store"
+ * }
+ * 
  */
 
 
