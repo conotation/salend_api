@@ -83,7 +83,7 @@ storeRouter.get('/category/:category', (req, res) => {
         })
     })
     .catch(e => {
-        res.status.json({success: false, msg: "Search Category Store Failed"})
+        res.status(400).json({success: false, msg: "Search Category Store Failed"})
     })
 });
 
@@ -134,7 +134,7 @@ storeRouter.get('/category/:category', (req, res) => {
  */
 
 storeRouter.get('/search', (req, res) => {
-    const  query = req.body.query
+    const  query = req.query.query
 
     const search = {s_name: {'$regex': query}}
     let response = {}
@@ -259,54 +259,6 @@ storeRouter.get('/:s_id', (req, res) => {
  * }
  * 
  */
-
-storeRouter.get('/test', (req, res) => {
-    let response = {};
-
-    Store.find({})
-    .then(p => res.json({stores: p}))
-    return;
-
-    const newStore = new Store({
-        "s_email": "qwerasdf",
-        "s_pw": "1234"
-    })
-
-    newStore.save()
-    .then(p => {
-        console.log(p)
-        res.redirect('/store')
-    }).catch(err => {
-        console.log(err)
-        response = { success: false, msg:"Testcase Create Failed" }
-        res.status(400).json(response)
-    });
-});
-
-storeRouter.get('/test/:_id', (req, res) => {
-    let response = {};
-    let id = req.params._id;
-
-    const updateStore = {
-        s_name: "GS21",
-        s_address: "서울시 면목동",
-        s_time: "00:00-23:59",
-        s_image: "https://api.salend.tk/res/image01.jpg",
-        s_lat: 44.2,
-        s_lng: 33.1,
-        s_certified: true 
-    }
-
-    Store.findByIdAndUpdate(id, updateStore)
-    .then(p => {
-        console.log(p)
-        res.redirect('/store')
-    }).catch(err => {
-        console.log(err)
-        response = { success: false, msg: "Store Updated Failed" }
-        res.status(400).json(response)
-    });
-});
 
 storeRouter.get('/delAll', (req, res) => {
     let response = {}

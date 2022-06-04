@@ -330,7 +330,7 @@ itemRouter.get('/nearby', async (req, res) => {
  */
 
 itemRouter.get('/search', (req, res) => {
-    const query = req.body.query
+    const query = req.query.query
 
     const search = {$text: {$search: query}}
     let response = {}
