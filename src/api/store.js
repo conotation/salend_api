@@ -134,6 +134,74 @@ storeRouter.get('/category/:category', (req, res) => {
  * }
  */
 
+storeRouter.get('/favorite', (req, res) => {
+    if(!req.query.fav)
+        res.status(409).json({success: false, msg: "hasn't parameter"})
+    const fav_arr = req.query.fav.replace("%20", " ").split(" ")
+
+    Store.find({'_id': {"$in": fav_arr}})
+    .then((stores) => {
+        res.json({stores: stores})
+    })
+    .catch(e => {
+        console.log(e);
+        res.status(400).json({success: false, msg: "Get fav stores failed"})
+    })
+})
+
+/**
+ * 매장 정보
+ * 
+ * @api {GET} /store/favorite 매장 찜 목록 검색 (매장 다중 검색)
+ * 
+ * @apiName searchManyStore
+ * @apiGroup Store
+ * @apiVersion 1.0.0
+ * @apiDescription 매장 찜 목록 검색, 매장 다중 검색으로도 사용 가능합니다.
+ * 
+ * @apiParam (Query string) {String} fav 매장 아이디
+ * ```
+ * fav=1, 2, 3, 4
+ * Using
+ * String str = arraylist.toString().replace("[", "").replace("]", "").replace(",", "");
+ * ```
+ *
+ * @apiSuccess {Array[Store]} stores Store 배열
+ * @apiSuccess {String} _id 매장 고유 아이디
+ * @apiSuccess {String} s_name 매장명
+ * @apiSuccess {String} s_address 매장 주소
+ * @apiSuccess {String} s_time 영업 시간
+ * @apiSuccess {String} s_image 매장 이미지
+ * @apiSuccess {Number} s_lot 매장 위도
+ * @apiSuccess {Number} s_lng 매장 경도
+ * @apiSuccess {Array} s_tag 매장 카테고리
+ * 
+ * @apiSuccessExample {json} Response (example):
+ * {
+ * stores: [
+ *   {
+ *     "_id":"628a036eba4830dcea124c88",
+ *     "s_name":"GS21",
+ *     "s_address":"서울시 면목동",
+ *     "s_time":"00:00-23:59",
+ *     "s_image":"https://api.salend.tk/res/image01.jpg",
+ *     "s_lat":44.2,
+ *     "s_lng":33.1,
+ *     "s_tag":[]
+ *   }
+ *  ]
+ * }
+ * 
+ * @apiError (Error 400) {boolean} success 성공 여부
+ * @apiError (Error 400) {String} msg 에러 메시지를 반환합니다
+ * 
+ * @apiErrorExample {json} Response (example):
+ * {
+ *  success: false,
+ *  msg: "Get fav stores failed"
+ * }
+ */
+
 storeRouter.get('/search', (req, res) => {
     const  query = req.query.query
 
