@@ -77,6 +77,7 @@ storeRouter.get('/category/:category', (req, res) => {
             q.push(e.i_store_id)
     }))
     .then(e => {
+        console.log(q)
         Store.find({_id: {"$in": q}})
         .then(store => {
             res.json({stores: store})
@@ -160,7 +161,7 @@ storeRouter.get('/search', (req, res) => {
  * @apiVersion 1.0.0
  * @apiDescription 매장명를 기준으로 매장을 검색합니다.
  * 
- * @apiParam (Body) {String} query 검색어
+ * @apiParam (Query string) {String} query 검색어
  * 
  * @apiSuccess {Store} _ 매장
  * @apiSuccess {String} _id 매장 고유 아이디

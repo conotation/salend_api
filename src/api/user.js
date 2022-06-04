@@ -216,7 +216,7 @@ userRouter.put('/:id', (req, res) => {
  * @apiParam (Body) {String} s_name   매장명 *
  * @apiParam (Body) {String} s_address   매장 주소 *
  * @apiParam (Body) {String} s_time   매장 영업시간 *
- * @apiParam (Body) {String} s_mage   매장 이미지 *
+ * @apiParam (Body) {String} s_image   매장 이미지 *
  * 
  * 
  * 

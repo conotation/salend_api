@@ -357,7 +357,7 @@ itemRouter.get('/search', (req, res) => {
  * @apiVersion 1.0.0
  * @apiDescription 검색어를 기준으로 상품을 검색합니다.
  * 
- * @apiParam (Body) {String} query 검색어
+ * @apiParam (Query string) {String} query 검색어
  * 
  * @apiSuccess {Array[Item]} _ Item 배열
  * @apiSuccess {String} _id 상품 고유 Id
@@ -400,6 +400,90 @@ itemRouter.get('/search', (req, res) => {
 
 // db.items.createIndex({i_name: "text"})
 // db.items.find({$text: {$search: "content"}})
+
+itemRouter.get('/favorite', (req, res) => {
+    if(!req.query.fav)
+        res.status(409).json({success: false, msg: "hasn't parameter"})
+    const fav_arr = req.query.fav.replace("%20", " ").split(" ")
+
+    console.log(fav_arr)
+
+    Item.find({'_id': {"$in": fav_arr}})
+    .then((items) => {
+        res.json({items: items})
+    })
+    .catch(e => {
+        console.log(e)
+        res.status(400).json({success: false, msg: "Get fav failed"})
+    })
+})
+
+/**
+ * 상품 정보
+ * 
+ * @api {GET} /item/favorite 찜 상품 검색 (상품 다중 검색)
+ * 
+ * @apiName searchManyItem
+ * @apiGroup Item
+ * @apiVersion 1.0.0
+ * @apiDescription 찜 상품 검색, 상품 다중 검색으로도 사용 가능합니다.
+ * 
+ * @apiParam (Query string) {String} fav 상품아이디
+ * ```
+ * fav=1, 2, 3, 4
+ * Using
+ * String str = arraylist.toString().replace("[", "").replace("]", "").replace(",", "");
+ * ```
+ * 
+ * @apiSuccess {Array[Item]} _ Item 배열
+ * @apiSuccess {String} _id 상품 고유 Id
+ * @apiSuccess {String} i_name 상품 이름
+ * @apiSuccess {String} i_image 상품 이미지
+ * @apiSuccess {String} i_store_name 상품 해당 매장의 이름
+ * @apiSuccess {String} i_store_id 상품 해당 매장의 Id
+ * @apiSuccess {String} i_exp 상품 유통기한
+ * @apiSuccess {Number} i_price 상품 정가
+ * @apiSuccess {Number} i_now_price 상품 할인가
+ * @apiSuccess {Number} i_status 상품 상태
+ * @apiSuccess {Number} i_tag 상품 카테고리
+ * 
+ * @apiSuccessExample {json} Response (example):
+ * {
+ * items: [
+ *   {
+ *     "_id":"6288e7d2e747d7702b9c4986",
+ *     "i_name":"snoopy",
+ *     "i_image":"https://api.salend.tk/res/A1.jpg",
+ *     "i_store_name":"Myunmok GS23",
+ *     "i_exp":"2022-05-22",
+ *     "i_price":1500,
+ *     "i_now_price":1200,
+ *     "i_status":0,
+ *     "i_tag": 0
+ *   }
+ *  ]
+ * }
+ * 
+ * 
+ * @apiError (Error 400) {boolean} success 성공 여부
+ * @apiError (Error 400) {String} msg 에러 메시지를 반환합니다
+ * 
+ * @apiErrorExample {json} Response (example):
+ * {
+ *  success: false,
+ *  msg: "Get fav failed"
+ * }
+ *
+ * @apiError (Error 409) {boolean} success 성공 여부
+ * @apiError (Error 409) {String} msg 에러 메시지를 반환합니다
+ * 
+ * @apiErrorExample {json} Response (example):
+ * {
+ *  success: false,
+ *  msg: "hasn't parameter"
+ * } */
+
+
 
 itemRouter.get('/:i_id', (req, res) => {
     const id = req.params.i_id
@@ -460,26 +544,6 @@ itemRouter.get('/:i_id', (req, res) => {
  * }
  */
 
-itemRouter.get('/test', (req, res) => {
-    const newItem = new Item({
-        "i_name": "snoopy",
-        "i_store_name": "Myunmok GS23",
-        "i_image": "https://api.salend.tk/res/A1.jpg",
-        "i_price": 1500,
-        "i_now_price": 1200,
-        "i_exp": "2022-12-31"
-    })
-
-    newItem.save()
-    .then(p => {
-        console.log(p)
-        res.redirect('/item')
-    }).catch(err => {
-        console.log(err)
-        response = { success: false, msg:"Testcase Create Failed" }
-        res.status(400).json(response)
-    });
-});
 
 module.exports = itemRouter;
 
