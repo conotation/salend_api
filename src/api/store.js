@@ -267,6 +267,24 @@ storeRouter.get('/search', (req, res) => {
  */
 
 
+storeRouter.get('/debug/:id', (req, res) => {
+    const id = req.params.id
+    if(!req.query.fav)
+        res.status(409).json({success: false, msg: "hasn't parameter"})
+    const fav_arr = req.query.fav.replace("%20", " ").split(" ")
+
+    Store.findByIdAndUpdate({_id: id}, {s_tag: fav_arr})
+    .then(s => {
+        console.log(s)
+        res.json(s)
+    })
+    .catch(e => {
+        console.log(e)
+        res.status(400).json({success: false, debug: true, msg: e})
+    })
+})
+
+
 storeRouter.get('/:s_id', (req, res) => {
     const id = req.params.s_id;
     let response = {};

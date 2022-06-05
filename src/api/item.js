@@ -5,6 +5,7 @@ const express = require('express');
 const itemRouter = express.Router();
 const mongoose = require('mongoose')
 const Item = require('../models/item')
+const Store = require('../models/store')
 
 itemRouter.get('/', (req, res) => {
     let response = {}
@@ -85,6 +86,7 @@ itemRouter.post('/', (req, res) => {    // 아이탬 생성
     let i_price = req.body.i_price;
     let i_now_price = req.body.i_now_price;
     let i_exp = req.body.i_exp;
+    let i_tag = req.body.i_tag;
 
     const newItem = new Item({
         "i_name": i_name,
@@ -95,6 +97,9 @@ itemRouter.post('/', (req, res) => {    // 아이탬 생성
         "i_now_price": i_now_price,
         "i_exp": i_exp
     })
+
+    if(i_tag)
+        newItem["i_tag"] = i_tag
 
     newItem.save()
     .then(p => {
@@ -175,7 +180,7 @@ itemRouter.put('/:_id', (req, res) => {     // 아이템 수정
     let i_name = req.body.i_name;
     let i_store_name = req.body.i_store_name;
     let i_store_id = req.body.i_store_id;
-    let i_image = req.body.i_image || "https://api.salend.tk/res/default.png";
+    let i_image = req.body.i_image;
     let i_price = req.body.i_price;
     let i_now_price = req.body.i_now_price;
     let i_exp = req.body.i_exp;
@@ -201,6 +206,10 @@ itemRouter.put('/:_id', (req, res) => {     // 아이템 수정
     Item.findByIdAndUpdate(i_id, updateItem)
     .then(p => {
         console.log(p)
+        if(i_tag) { // 잘못짬 수정예정
+        Store.findByIdAndUpdate({_id: p['i_store_id']}, {s_tag: {$push : [i_tag]}})
+            .then(s =>console.log(s))
+        }
         res.json(p)
     }).catch(err => {
         console.log(err)
@@ -406,8 +415,6 @@ itemRouter.get('/favorite', (req, res) => {
         res.status(409).json({success: false, msg: "hasn't parameter"})
     const fav_arr = req.query.fav.replace("%20", " ").split(" ")
 
-    console.log(fav_arr)
-
     Item.find({'_id': {"$in": fav_arr}})
     .then((items) => {
         res.json({items: items})
@@ -473,15 +480,7 @@ itemRouter.get('/favorite', (req, res) => {
  *  success: false,
  *  msg: "Get fav failed"
  * }
- *
- * @apiError (Error 409) {boolean} success 성공 여부
- * @apiError (Error 409) {String} msg 에러 메시지를 반환합니다
- * 
- * @apiErrorExample {json} Response (example):
- * {
- *  success: false,
- *  msg: "hasn't parameter"
- * } */
+ */
 
 
 
