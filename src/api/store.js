@@ -271,7 +271,9 @@ storeRouter.get('/debug/:id', (req, res) => {
     const id = req.params.id
     if(!req.query.fav)
         res.status(409).json({success: false, msg: "hasn't parameter"})
-    const fav_arr = req.query.fav.replace("%20", " ").split(" ")
+    const fav_arr = req.query.fav.replace("%20", " ").split(" ").map((item) => {
+        return parseInt(item, 10)
+    })
 
     Store.findByIdAndUpdate({_id: id}, {s_tag: fav_arr})
     .then(s => {
