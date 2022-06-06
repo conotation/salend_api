@@ -501,7 +501,7 @@ itemRouter.get('/:i_id', (req, res) => {
 /**
  * 상품 정보
  * 
- * @api {POST} /item/:_id 단일 상품 쿼리 요청
+ * @api {GET} /item/:_id 단일 상품 쿼리 요청
  * 
  * @apiName getItem
  * @apiGroup Item

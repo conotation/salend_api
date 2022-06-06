@@ -269,9 +269,9 @@ storeRouter.get('/search', (req, res) => {
 
 storeRouter.get('/debug/:id', (req, res) => {
     const id = req.params.id
-    if(!req.query.fav)
+    if(!req.query.s_tag)
         res.status(409).json({success: false, msg: "hasn't parameter"})
-    const fav_arr = req.query.fav.replace("%20", " ").split(" ").map((item) => {
+    const fav_arr = req.query.s_tag.replace("%20", " ").split(" ").map((item) => {
         return parseInt(item, 10)
     })
 
