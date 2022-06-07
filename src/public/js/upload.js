@@ -20,7 +20,7 @@ function upload() {
             if(data.success){
                 console.log(data.filename)
                 var img = document.createElement("img");
-                img.src = document.URL + "image/" + data.filename;
+                img.src = document.URL + "res/" + data.filename;
                 img.style.width = "100px";
                 img.style.height = "100px";
                 divimg.appendChild(img);
