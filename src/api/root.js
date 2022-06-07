@@ -22,11 +22,11 @@ const upload = multer({
     }),
 });
 
-router.get('/', (req, res) => {
+router.get('/', (req, res) => { // 이미지 업로드 예제
 	res.render('index')
 });
 
-router.get('/map', (req, res) => {
+router.get('/map', (req, res) => {  // 도로명 주소 검색 API
 	res.render('map')
 })
 
@@ -34,13 +34,6 @@ router.get('/geo', (req, res) => {  // 필요성 재판단 중
     const loc = {location: req.body.loc}
     res.render('geo', loc)
 });
-
-// router.get('/pay', (req, res) => {
-//     let value = {item: "기본 값", value: 8000}
-//     if(req.query.item != undefined && value != undefined)
-//         value = {item: req.query.item, value: req.query.value}
-//     res.render('pay', value)
-// })
 
 // 이미지 업로드
 router.post('/upload', upload.single('image'), (req, res) => {

@@ -284,7 +284,9 @@ storeRouter.get('/debug/:id', (req, res) => {
         console.log(e)
         res.status(400).json({success: false, debug: true, msg: e})
     })
-})
+});
+
+// debug용은 문서작성 제외
 
 
 storeRouter.get('/:s_id', (req, res) => {
@@ -362,6 +364,8 @@ storeRouter.get('/delAll', (req, res) => {
             response = {success: false, msg: "삭제 실패"}
             res.status(400).json(response)
         })
-})
+});
+
+// 얘도 사실상 테스트 모듈이고
 
 module.exports = storeRouter;

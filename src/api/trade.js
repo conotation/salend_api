@@ -16,6 +16,9 @@ tradeRouter.get('/debug/:id', (req, res) => {
         })
 }); // 결제 페이지
 
+// 디버깅용인데 사실상 끝까지 쓸듯함
+
+
 tradeRouter.get('/cancel/:id', (req, res) => {
     const imp_uid = req.query.imp_uid
     const merchant_uid = req.query.merchant_uid
@@ -60,21 +63,8 @@ tradeRouter.get('/cancel/:id', (req, res) => {
         })
 });
 
-tradeRouter.post('/:id', (req, res) => {
-    let response = {};
-    Item.findOne({ _id: req.params.id })
-        .then(item => {
-            console.log(item)
-            let value = { item: item.i_name, value: item.i_now_price }
-            res.render('pay', value)
-        })
-}); // 결제 페이지
+// TODO 결제 아이디 리스트오면 리스트 반환 API 구현 예정
 
-
-
-tradeRouter.get('/:id', (req, res) => {
-
-}); // 결제 완료 페이지
-
+// 모바일 결제 종료/취소 페이지
 
 module.exports = tradeRouter;

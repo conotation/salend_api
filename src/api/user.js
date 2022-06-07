@@ -19,6 +19,8 @@ userRouter.get('/', (req, res) => {
         })
 });
 
+// 전체 계정의 정보 가져오기 Debug용
+
 userRouter.post('/login', (req, res) => {
     let response = {}
     let s_email = req.body.s_email;
