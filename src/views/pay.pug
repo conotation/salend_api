@@ -28,7 +28,7 @@ body(onload="InitField()")
         buyer_tel :  '', // 구매자 전화번호
         buyer_addr :  '',  // 구매자 주소
         buyer_postcode :  '',  // 구매자 우편번호
-        m_redirect_url : 'https://api.salend.tk/cancel_pay'  // 결제 완료 후 보낼 컨트롤러의 메소드명
+        m_redirect_url : 'https://api.salend.tk/pay/cancel/#{id}/'  // 결제 완료 후 보낼 컨트롤러의 메소드명
       }, function(rsp) {
       if ( rsp.success ) { // 성공시
         var msg = '결제가 완료되었습니다.';
@@ -42,7 +42,7 @@ body(onload="InitField()")
         var msg = '결제에 실패하였습니다.';
         msg += '에러내용 : ' + rsp.error_msg;
         console.log(msg)
-        window.Leaf.getResult(false, "#{item}", null, null, rsp.error_msg)
+        window.Leaf.getResult(false, "#{item}", null, rsp.paid_amount, rsp.error_msg)
       }
       });
     }
