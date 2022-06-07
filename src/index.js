@@ -16,7 +16,7 @@ router.use('/', root);
 router.use("/item", Item);
 router.use("/store", Store);
 router.use('/user', User);
-router.use("/buy", Trade)
+router.use("/pay", Trade)
 router.use("/res", Resource);
 
 module.exports = router;

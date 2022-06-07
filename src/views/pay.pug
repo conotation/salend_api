@@ -37,10 +37,12 @@ body(onload="InitField()")
         msg += '결제 금액 : ' + rsp.paid_amount;
         msg += '카드 승인번호 : ' + rsp.apply_num;
         console.log(msg)
+        window.Leaf.getResult(true, "#{item}",rsp.imp_uid, rsp.paid_amount, null)
       } else { // 실패시
         var msg = '결제에 실패하였습니다.';
         msg += '에러내용 : ' + rsp.error_msg;
         console.log(msg)
+        window.Leaf.getResult(false, "#{item}", null, null, rsp.error_msg)
       }
       });
     }
