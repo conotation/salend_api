@@ -6,9 +6,9 @@ body
     script.
         window.Leaf.getResult(
         "success": #{success},
-        "productName": #{name},
-        "payId": #{imp},
+        "productName": "#{name}",
+        "payId": "#{imp}",
         "price": #{price},
-        "err": #{msg}
+        "err": '#{msg}'
         )
 

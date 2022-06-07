@@ -33,12 +33,11 @@ tradeRouter.get('/cancel/:id', (req, res) => {
             imp: imp_uid, 
             merchant: merchant_uid, 
             success: imp_success,
-            msg: error_msg
+            msg: "" + error_msg
         }
-        
+
         res.render('cancel', data)
     })
-
 })
 
 tradeRouter.post('/:id', (req, res) => {
