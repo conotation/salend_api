@@ -35,22 +35,12 @@ router.get('/geo', (req, res) => {  // 필요성 재판단 중
     res.render('geo', loc)
 });
 
-router.get('/pay', (req, res) => {
-    let value = {item: "기본 값", value: 8000}
-    if(req.query.item != undefined && value != undefined)
-        value = {item: req.query.item, value: req.query.value}
-    res.render('pay', value)
-})
-
-router.get('/cancel_pay', (req, res) => {
-    const imp_uid = req.query.imp_uid
-    const merchant_uid = req.query.merchant_uid
-    const imp_success = req.query.imp_success
-    const error_msg = req.query.error_msg
-
-    let response = {imp: imp_uid, merchant: merchant_uid, success: imp_success, msg: error_msg}
-    res.json(response)
-});
+// router.get('/pay', (req, res) => {
+//     let value = {item: "기본 값", value: 8000}
+//     if(req.query.item != undefined && value != undefined)
+//         value = {item: req.query.item, value: req.query.value}
+//     res.render('pay', value)
+// })
 
 // 이미지 업로드
 router.post('/upload', upload.single('image'), (req, res) => {

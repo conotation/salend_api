@@ -1,0 +1,63 @@
+@startuml
+!define table(x) class x << (T, #FFAAAA) >>
+!define bold(x) <b>x</b>
+
+hide method
+
+left to right direction
+'top to botom direction
+
+table(profile) {
+    + u_id: Serial
+    + u_name: String
+    + bold(u_store_favorite): Array[String]
+    + bold(u_item_favorite): Array[String]
+    + bold(u_buy_list): Array[String]
+}
+
+
+table(stores) {
+    + bold(_id): Serial
+    + s_email: String
+    + s_pw: String
+    + s_name: String
+    + s_location: String
+    + s_time: String
+    + s_image: String
+    + bold(s_tag): Array[Number]
+    + s_lat: Number
+    + s_lng: Number
+}
+
+table(items) {
+   +  bold(_id): Serial
+   +  i_name: String
+   +  i_store_name: String
+   +  bold(i_store_id): String
+   +  i_image: String
+   +  i_price: Number
+   +  i_now_price: Number
+   +  bold(i_tag): Number
+   +  i_exp: String
+   +  i_status: Number
+}
+
+table(buys) {
+  + bold(_id): Serial
+  + b_ref: String
+  + b_item: ItemObject
+  + b_date: Date
+}
+
+buys -[hidden]-> items
+
+profile::u_store_favorite --> stores::_id
+profile::u_item_favorite --> items::_id
+profile::u_buy_list -r-> buys::_id
+
+
+items::i_store_id --> stores::_id
+stores::s_tag --> items::i_tag
+items::i_tag --> stores::s_tag
+
+@enduml

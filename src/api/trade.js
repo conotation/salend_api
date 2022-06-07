@@ -31,10 +31,10 @@ tradeRouter.get('/cancel/:id', (req, res) => {
                         res.json({ success: false, msg: "Id에 해당하는 상품이 없습니다." })
 
                     if (imp_success) {
-                        const newBuy = new Store {
+                        const newBuy = new Buy ({
                             b_ref: imp_uid,
                             b_item: item,
-                        }
+                        })
 
                         newBuy.save()
                             .then(p => {
