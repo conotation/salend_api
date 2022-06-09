@@ -29,7 +29,6 @@ userRouter.post('/login', (req, res) => {
     Store.find({ s_email: s_email, s_pw: s_pw }, { s_email:false, s_pw: false, __v: false })
         .then((user) => {
             if (user.length == 0 || user == []) {
-                console.log(err)
                 response = { success: false, msg: "로그인 정보가 없습니다." }
                 res.status(400).json(response);
             }
@@ -126,7 +125,7 @@ userRouter.post('/', (req, res) => {
         })
         .catch((err) => {
             console.log(err)
-            response = { success: false, msg: "회원가입 실패" }
+            response = { success: false, msg: "회원가입 실패", code: err.code }
             res.json(response)
         })
 });
@@ -134,7 +133,7 @@ userRouter.post('/', (req, res) => {
 /**
  * 매장 정보
  * 
- * @api {post} /user/signup 회원가입 처리
+ * @api {post} /user/ 회원가입 처리
  * 
  * @apiName signup
  * @apiGroup User

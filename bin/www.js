@@ -4,5 +4,5 @@ const app = require("../app")
 const PORT = 8000
 
 app.listen(PORT, () => {
-	console.log("server run....");
+	console.log("S: server run....");
 });

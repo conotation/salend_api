@@ -12,9 +12,9 @@ table(profile) {
     + u_name: String
     + bold(u_store_favorite): Array[String]
     + bold(u_item_favorite): Array[String]
-    + bold(u_buy_list): Array[String]
+    + bold(u_pay_list): Array[String]
 }
-
+'
 
 table(stores) {
     + bold(_id): Serial
