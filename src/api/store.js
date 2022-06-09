@@ -22,14 +22,14 @@ storeRouter.get('/', (req, res) => {
 });
 
 /**
- * 가게 정보
+ * 매장 정보
  * 
- * @api {get} /store 가게 쿼리 요청
+ * @api {get} /store 매장 쿼리 요청
  * 
  * @apiName getStores
  * @apiGroup Store
  * @apiVersion 1.0.0
- * @apiDescription 가게 정보를 요청합니다.
+ * @apiDescription 매장 정보를 요청합니다.
  * 
  * @apiSuccess {Array[Store]} stores Store 배열
  * @apiSuccess {String} _id 매장 고유 아이디
@@ -89,7 +89,7 @@ storeRouter.get('/category/:category', (req, res) => {
 });
 
 /**
- * 가게 정보
+ * 매장 정보
  * 
  * @api {get} /store/category/:category 매장 카테고리 검색
  * 
@@ -220,7 +220,7 @@ storeRouter.get('/search', (req, res) => {
 })
 
 /**
- * 가게 정보
+ * 매장 정보
  * 
  * @api {get} /store/search 매장 검색 기능
  * 
@@ -293,9 +293,9 @@ storeRouter.get('/:s_id', (req, res) => {
     const id = req.params.s_id;
     let response = {};
 
-    Store.find({_id: id}, {s_email: false, s_pw: false, __v: false})
-        .then((store) => {
-            res.json(store[0])
+    Item.find({i_store_id: id}, {})
+        .then((items) => {
+            res.json({items: items})
         })
         .catch(err => {
             console.log(err)
@@ -305,39 +305,43 @@ storeRouter.get('/:s_id', (req, res) => {
 });
 
 /**
- * 가게 정보
+ * 매장 정보
  * 
- * @api {get} /store/:_id/ 단일 가게 쿼리 요청
+ * @api {get} /store/:_id/ 매장 상품 요청
  * 
- * @apiName getStore
+ * @apiName getStoreItem
  * @apiGroup Store
  * @apiVersion 1.0.0
- * @apiDescription id에 해당하는 가게 정보를 요청합니다.
+ * @apiDescription id에 해당하는 매장 상품을 반환합니다
  * 
- * @apiParam (Parameter) {String} _id 가게 ID
+ * @apiParam (Parameter) {String} _id 매장 ID
  * 
- * @apiSuccess {Store} _ 매장
- * @apiSuccess {String} _id 매장 고유 아이디
- * @apiSuccess {String} s_name 매장명
- * @apiSuccess {String} s_address 매장 주소
- * @apiSuccess {String} s_time 영업 시간
- * @apiSuccess {String} s_image 매장 이미지
- * @apiSuccess {Number} s_lot 매장 위도
- * @apiSuccess {Number} s_lng 매장 경도
- * @apiSuccess {Array} s_tag 매장 카테고리
- * @apiSuccess {Boolean} s_certified 매장 인증 여부
+ * @apiSuccess {Array[Item]} Items item 배열
+ * @apiSuccess {String} _id 상품 고유 Id
+ * @apiSuccess {String} i_name 상품 이름
+ * @apiSuccess {String} i_image 상품 이미지
+ * @apiSuccess {String} i_store_name 상품 해당 매장
+ * @apiSuccess {String} i_exp 상품 유통기한
+ * @apiSuccess {Number} i_price 상품 정가
+ * @apiSuccess {Number} i_now_price 상품 할인가
+ * @apiSuccess {Number} i_status 상품 상태
+ * @apiSuccess {Number} i_tag 상품 카테고리
  * 
  * @apiSuccessExample {json} Response (example):
  * {
- *   "_id":"628a036eba4830dcea124c88",
- *   "s_name":"GS21",
- *   "s_address":"서울시 면목동",
- *   "s_time":"00:00-23:59",
- *   "s_image":"https://api.salend.tk/res/image01.jpg",
- *   "s_lat":44.2,
- *   "s_lng":33.1,
- *   "s_tag":[],
- *   "s_certified": true
+ * items: [
+ *   {
+ *     "_id":"6288e7d2e747d7702b9c4986",
+ *     "i_name":"snoopy",
+ *     "i_image":"https://api.salend.tk/res/A1.jpg",
+ *     "i_store_name":"Myunmok GS23",
+ *     "i_exp":"2022-05-22",
+ *     "i_price":1500,
+ *     "i_now_price":1200,
+ *     "i_status":0,
+ *     "i_tag": 0
+ *   }
+ *  ]
  * }
  * 
  * @apiError (Error 400) {boolean} success 성공 여부
