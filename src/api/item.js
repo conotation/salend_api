@@ -95,7 +95,8 @@ itemRouter.post('/', (req, res) => {    // 아이탬 생성
         "i_image": i_image,
         "i_price": i_price,
         "i_now_price": i_now_price,
-        "i_exp": i_exp
+        "i_exp": i_exp,
+        "i_tag": i_tag
     })
 
     if(i_tag)
@@ -129,6 +130,7 @@ itemRouter.post('/', (req, res) => {    // 아이탬 생성
  * @apiParam (Body) {Number} i_price 상품 가격
  * @apiParam (Body) {Number} i_now_price 상품의 할인 가격
  * @apiParam (Body) {String} i_exp 상품 유통 기한
+ * @apiParam (Body) {Number} i_tag 상품 분류 태그
  * @apiParam (Body) {Number} i_status 상품 상태
  * 
  * @apiSuccess {Store} _ 상품

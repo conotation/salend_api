@@ -164,8 +164,8 @@ userRouter.post('/', (req, res) => {
 userRouter.put('/:id', (req, res) => {
     const id = req.params.id;
     let response = {};
-    const lat = req.body.lat || 0
-    const lng = req.body.lng || 0
+    const lat = req.body.lat
+    const lng = req.body.lng
 
     if (id == undefined) {
         response = { success: false, msg: "파라미터 오류" }
@@ -175,7 +175,7 @@ userRouter.put('/:id', (req, res) => {
     let s_name = req.body.s_name;
     let s_address = req.body.s_address;
     let s_time = req.body.s_time;
-    let s_image = req.body.s_image || "https://api.salend.tk/res/default.png";
+    let s_image = req.body.s_image;
 
     const updateStore = {
         s_name: s_name,
@@ -186,16 +186,26 @@ userRouter.put('/:id', (req, res) => {
         s_lng: lng
     }
 
+    Object.keys(updateStore).forEach(key => updateItem[key] === undefined ? delete updateItem[key] : {});
+
+
     Store.findByIdAndUpdate(id, updateStore)
         .then((p) => {
             console.log(p)
-            response = { success: true }
-            res.json(response)
+            Store.find({_id: id})
+            .then((store) => {
+                res.json(store[0])
+            })
+            .catch(err => {
+                console.log(err);
+                response = { success: false, msg: "매장정보 갱신 실패" };
+                res.status(400).json(response);
+            });
         })
         .catch((err) => {
             console.log(err)
             response = { success: false, msg: "매장정보 갱신 실패" }
-            res.status(400).json(response)
+            res.status(400).json(response);
         })
 });
 

@@ -14,19 +14,19 @@ table(profile) {
     + bold(u_item_favorite): Array[String]
     + bold(u_pay_list): Array[String]
 }
-'
 
 table(stores) {
     + bold(_id): Serial
     + s_email: String
     + s_pw: String
     + s_name: String
-    + s_location: String
+    + s_address: String
     + s_time: String
     + s_image: String
     + bold(s_tag): Array[Number]
     + s_lat: Number
     + s_lng: Number
+    + s_certified: Boolean
 }
 
 table(items) {

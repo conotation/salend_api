@@ -17,7 +17,8 @@
     "sharp": "^0.30.4"
   },
   "scripts": {
-    "doc": "apidoc -i src -o apidoc"
+    "doc": "apidoc -i src -o apidoc",
+    "cloc": "cloc --vcs=git --not-match-f=\"(yarn\\.lock|package\\.json|package\\-lock\\.json)\" ."
   },
   "repository": {
     "type": "git",
