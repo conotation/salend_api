@@ -19,6 +19,25 @@ userRouter.get('/', (req, res) => {
         })
 });
 
+userRouter.get('/:id', (req, res) => {
+    let response = {};
+    if(!req.params.id){
+        response = { success: false, msg: "파라미터 오류" }
+        res.status(409).json(response)
+    }
+    let id = req.parmas.id;
+
+    Store.find({_id: id}, {s_pw: false, __v: false})
+        .then((store) => {
+            res.json({ store: store });
+        })
+        .catch(err => {
+            console.log(err)
+            response = { success: false, msg: "User Search Error" }
+            res.status(400).json(response)
+        })
+});
+
 // 전체 계정의 정보 가져오기 Debug용
 
 userRouter.post('/login', (req, res) => {
