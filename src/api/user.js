@@ -25,11 +25,11 @@ userRouter.get('/:id', (req, res) => {
         response = { success: false, msg: "파라미터 오류" }
         res.status(409).json(response)
     }
-    let id = req.parmas.id;
+    let id = req.params.id;
 
     Store.find({_id: id}, {s_pw: false, __v: false})
         .then((store) => {
-            res.json({ store: store });
+            res.json({ store: store[0] });
         })
         .catch(err => {
             console.log(err)
@@ -205,7 +205,7 @@ userRouter.put('/:id', (req, res) => {
         s_lng: lng
     }
 
-    Object.keys(updateStore).forEach(key => updateStore[key] === undefined ? delete updateStoire[key] : {});
+    Object.keys(updateStore).forEach(key => updateStore[key] === undefined ? delete updateStore[key] : {});
 
 
     Store.findByIdAndUpdate(id, updateStore)
