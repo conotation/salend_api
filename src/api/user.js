@@ -186,7 +186,7 @@ userRouter.put('/:id', (req, res) => {
         s_lng: lng
     }
 
-    Object.keys(updateStore).forEach(key => updateItem[key] === undefined ? delete updateItem[key] : {});
+    Object.keys(updateStore).forEach(key => updateStore[key] === undefined ? delete updateStoire[key] : {});
 
 
     Store.findByIdAndUpdate(id, updateStore)

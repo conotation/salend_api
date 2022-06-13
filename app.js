@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const fileupload = require('express-fileupload')
 
 // DB Connect 
-mongoose.connect('mongodb://localhost:27017/salend_test', {
+mongoose.connect('mongodb://localhost:27017/salend_api', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
