@@ -6,19 +6,6 @@ const path = require('path');
 const fs = require('fs');
 const Store = require('../models/store');
 
-userRouter.get('/', (req, res) => {
-    let response = {};
-    Store.find({})
-        .then((stores) => {
-            res.json({ stores: stores });
-        })
-        .catch(err => {
-            console.log(err)
-            response = { success: false, msg: "User Search Error" }
-            res.status(400).json(response)
-        })
-});
-
 userRouter.get('/:id', (req, res) => {
     let response = {};
     if(!req.params.id){

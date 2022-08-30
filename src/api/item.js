@@ -82,7 +82,7 @@ itemRouter.post('/', (req, res) => {    // 아이탬 생성
 
     let i_name = req.body.i_name;
     let i_store_name = req.body.i_store_name;
-    let i_image = req.body.i_image || "https://api.salend.tk/res/default.png";
+    let i_image = "https://store.salend.tk"+req.body.i_image || "https://api.salend.tk/res/default.png";
     let i_price = req.body.i_price;
     let i_now_price = req.body.i_now_price;
     let i_exp = req.body.i_exp;
@@ -150,7 +150,7 @@ itemRouter.post('/', (req, res) => {    // 아이탬 생성
  * {
  *   "_id":"6288e7d2e747d7702b9c4986",
  *   "i_name":"snoopy",
- *   "i_image":"https://api.salend.tk/res/A1.jpg",
+ *   "i_image":"https://store.salend.tk/image/1010204516.png",
  *   "i_store_name":"Myunmok GS23",
  *   "i_store_id": ""
  *   "i_exp":"2022-05-22",
